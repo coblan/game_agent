@@ -76,7 +76,7 @@ class AgentUserForm(ModelFields):
             obj.save_form()
             if  self.is_create:
                 self.instance.account = obj.instance  
-                agent_group = Group.objects.get(name='代理人')
+                agent_group = Group.objects.get(pk =1 )
                 obj.instance.groups.add(agent_group)
         else:
             error =obj.get_errors()
