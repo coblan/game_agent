@@ -7,7 +7,7 @@ from helpers.maintenance.update_static_timestamp import js_stamp
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from helpers.director.access.permit import has_permit
-
+from helpers.mobile.base_data import mb_page_dc
 from django.utils import timezone
 
 class PcMenu(BaseEngine):
@@ -25,7 +25,12 @@ class PcMenu(BaseEngine):
             {'label':'首页','url':page('enginhome'),'icon': fa('fa-home')},
           
             {'label':'充值记录','url':page('recharge'),'icon': fa('fa-cny'), 'visible': True},
-            {'label': '代理人管理', 'url': page('agentuser'), 'icon': fa('fa-user-circle-o'), 'visible': True},
+            
+            {'label': '代理人管理', 'icon': fa('fa-user-circle-o'), 
+             "submenu":[
+                 {'label':'代理人列表','url':page('agentuser')},
+                 {'label':'代理人充值','url':page('agentrechage')},
+                 ]},
             
             #{'label': '域名列表', 'url': page('domain'), 'icon': fa('fa-clock-o'), 'visible': True},
 
@@ -51,4 +56,33 @@ class PcMenu(BaseEngine):
 
 PcMenu.add_pages(page_dc)
 
+
+
+mb_page={}
+#inspect_dict['mb_page']= mb_page
+ 
+ 
+class MBpageEngine(BaseEngine):
+    url_name='mb_page'
+    need_login=True
+    access_from_internet=True
+    login_url='/mb/login'
+    menu=[
+        #{'label':'user_info','url':page('user_buyrecord')},
+        #{'label':'user_washrecord','url':page('user_washrecord')},
+        #{'label':'user_info','url':page('user_info')},
+           
+        ]
+    def custome_ctx(self, ctx):
+        if 'extra_js' not in ctx:
+            ctx['extra_js'] = []
+        #if 'job' not in ctx['extra_js']:
+            #ctx['extra_js'].append('job')
+        #ctx['extra_js'].append('moment')
+        #ctx['extra_js'].append('moment_zh_cn')
+         
+        return ctx
+ 
+MBpageEngine.add_pages(mb_page)
+MBpageEngine.add_pages(mb_page_dc)
 

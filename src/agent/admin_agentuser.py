@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,director_save_row
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,director_save_row,RowFilter
 from .models import AgentUser
 from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group
 from django.utils import timezone
@@ -15,6 +15,11 @@ class AgentUserPage(TablePage):
         exclude =['id']
         pop_edit_fields = ['name']
         
+        def getExtraHead(self):
+            return [
+                {'name':'is_active','label':'激活','editor':'com-table-bool-shower'},
+            ]
+        
         def dict_row(self, inst):
             return {
                 'username':inst.account.username,
@@ -29,6 +34,14 @@ class AgentUserPage(TablePage):
             if head['name'] in width:
                 head['width'] = width[head['name']]
             return head
+        
+        def get_operation(self):
+            ops =super().get_operation()
+            out = []
+            for op in ops:
+                if op['name'] !='delete_selected':
+                    out.append(op)
+            return out
         
 
 class AgentAcount(UserFields):

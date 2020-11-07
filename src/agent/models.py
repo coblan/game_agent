@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import Group,User
+
 # Create your models here.
 
 class AgentUser(models.Model):
     name = models.CharField('代理人名字',max_length=100,)
     account = models.OneToOneField(User,verbose_name='账号',null=True)
+    amount = models.IntegerField(verbose_name='余额',default=0)
     
     def __str__(self):
         return self.name
@@ -19,3 +21,9 @@ class Recharge(models.Model):
     createtime= models.DateTimeField(verbose_name='充值时间',auto_now_add=True)
     status = models.IntegerField(verbose_name='状态',default=0)
 
+
+class AgentRecharge(models.Model):
+    agent = models.ForeignKey(AgentUser,verbose_name='代理人')
+    amount = models.IntegerField(verbose_name='充值金额')
+    createtime= models.DateTimeField(verbose_name='充值时间',auto_now_add=True)
+    admin = models.ForeignKey(User,verbose_name='操作人员',null=True)

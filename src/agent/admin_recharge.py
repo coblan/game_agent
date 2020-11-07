@@ -16,6 +16,7 @@ class RechargeForm(ModelFields):
     class Meta:
         model = Recharge
         exclude =[]
+        
 
 director.update({
     'recharge':RechargePage.tableCls,

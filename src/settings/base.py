@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'helpers.case.jb_admin',
     'helpers.case.data_chart',
     'helpers.authuser', 
+    'helpers.mobile',
     'hello',
     'agent',
     
