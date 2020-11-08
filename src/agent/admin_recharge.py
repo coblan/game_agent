@@ -11,6 +11,16 @@ class RechargePage(TablePage):
     class tableCls(ModelTable):
         model = Recharge
         exclude =[]
+        
+        def get_operation(self):
+            ops = super().get_operation()
+            out = []
+            for op in ops:
+                if op['name'] == 'add_new':
+                    if getattr(self.crt_user,'agentuser',None):
+                        op['label'] = '充值'
+                        out.append(op)
+            return out
 
 class RechargeForm(ModelFields):
     class Meta:

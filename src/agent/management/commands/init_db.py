@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 import logging
 general_log = logging.getLogger('general_log')
-from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group
+from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group,PermitModel
 
 class Command(BaseCommand):
     """
@@ -12,5 +12,9 @@ class Command(BaseCommand):
         group , _ = Group.objects.get_or_create( id =1 )
         group.name = '代理人'
         group.save()
+        md , _ = PermitModel.objects.get_or_create(group=group)
+        permits =['GamePlayer','Recharge']
+        md.names= ';'.join(permits)
+        md.save()
 
 

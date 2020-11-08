@@ -24,7 +24,17 @@ class PcMenu(BaseEngine):
         menu = [
             {'label':'首页','url':page('enginhome'),'icon': fa('fa-home')},
           
-            {'label':'充值记录','url':page('recharge'),'icon': fa('fa-cny'), 'visible': True},
+          
+            {'label':'游戏管理','icon': fa('fa-gamepad'), 
+             'submenu':[
+                 {'label':'游戏列表','url':page('game')},
+                 ]},
+          
+            {'label':'玩家管理','icon': fa('fa-gamepad'), 
+             'submenu':[
+                 {'label':'玩家列表','url':page('player')},
+                 {'label':'充值记录','url':page('recharge')}
+                 ]},
             
             {'label': '代理人管理', 'icon': fa('fa-user-circle-o'), 
              "submenu":[
