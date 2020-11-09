@@ -31,6 +31,11 @@ class GameBlock(models.Model):
     def __str__(self):
         return self.name
 
+RECHARGE_STATUS = (
+    (0,'未成功'),
+    (1,'成功'),
+)
+
 class Recharge(models.Model):
     agent= models.ForeignKey(AgentUser,verbose_name='代理人')
     #game = models.IntegerField(verbose_name='游戏',default=0)
@@ -38,11 +43,13 @@ class Recharge(models.Model):
     #block = models.IntegerField(verbose_name='大区',default= 0 )
     block = models.ForeignKey(to=GameBlock, verbose_name='大区')
     player = models.ForeignKey(GamePlayer,verbose_name='玩家',)
+    charactar = models.CharField('角色',max_length=100,blank=True)
+    pc_id = models.BigIntegerField(verbose_name='角色id',default=0)
     #player = models.CharField('用户名',max_length=100,)
     desp = models.TextField('产品描述',blank= True)
     amount = models.IntegerField('数量',default=0)
     createtime= models.DateTimeField(verbose_name='充值时间',auto_now_add=True)
-    status = models.IntegerField(verbose_name='状态',default=0)
+    status = models.IntegerField(verbose_name='状态',default=1)
 
 
 class AgentRecharge(models.Model):

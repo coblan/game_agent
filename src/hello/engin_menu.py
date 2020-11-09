@@ -79,6 +79,7 @@ class MBpageEngine(BaseEngine):
     need_login=True
     access_from_internet=True
     login_url='/mb/login'
+    can_regist = False
     menu=[
         #{'label':'user_info','url':page('user_buyrecord')},
         #{'label':'user_washrecord','url':page('user_washrecord')},

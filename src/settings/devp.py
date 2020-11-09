@@ -15,5 +15,16 @@ DATABASES = {
         'PORT': '3306', 
         'OPTIONS': {'charset':'utf8mb4'},
       },
-
+     'game_sqlserver': {
+         'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
+         'ENGINE': 'sql_server.pyodbc',
+          'HOST':'120.79.245.189,10824',
+          
+          'USER':  'sa',
+         'PASSWORD': 'libi@123', 
+         'OPTIONS': {
+              
+               },
+                
+        } , 
 } 
