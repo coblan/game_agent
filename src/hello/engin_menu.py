@@ -10,6 +10,8 @@ from helpers.director.access.permit import has_permit
 from helpers.mobile.base_data import mb_page_dc
 from django.utils import timezone
 
+from agent.models import *
+
 class PcMenu(BaseEngine):
     url_name = 'game_agent_admin'
     title = '代理人系统'
@@ -27,19 +29,19 @@ class PcMenu(BaseEngine):
           
             {'label':'游戏管理','icon': fa('fa-gamepad'), 
              'submenu':[
-                 {'label':'游戏列表','url':page('game')},
+                 {'label':'游戏列表','url':page('game'),'visible':can_touch(Game, crt_user)},
                  ]},
           
             {'label':'玩家管理','icon': fa('fa-gamepad'), 
              'submenu':[
-                 {'label':'玩家列表','url':page('player')},
-                 {'label':'充值记录','url':page('recharge')}
+                 {'label':'玩家列表','url':page('player'),'visible':can_touch(GamePlayer, crt_user)},
+                 {'label':'充值记录','url':page('recharge'),'visible':can_touch(Recharge, crt_user)}
                  ]},
             
             {'label': '代理人管理', 'icon': fa('fa-user-circle-o'), 
              "submenu":[
-                 {'label':'代理人列表','url':page('agentuser')},
-                 {'label':'代理人充值','url':page('agentrechage')},
+                 {'label':'代理人列表','url':page('agentuser'),'visible':can_touch(AgentUser, crt_user)},
+                 {'label':'代理人充值','url':page('agentrechage'),'visible':can_touch(AgentRecharge, crt_user)},
                  ]},
             
             #{'label': '域名列表', 'url': page('domain'), 'icon': fa('fa-clock-o'), 'visible': True},
