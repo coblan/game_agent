@@ -19,7 +19,7 @@ class Home(object):
             'editor_ctx':  { 'title':'代理人系统',
                              'cells':[
                                  {'label':'玩家充值',
-                                  'fields_ctx':{**RechargeForm().get_head_context(),
+                                  'fields_ctx':{**RechargeForm().get_context(),
                                                 'title':'玩家充值'},
                                   'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)'},
                                  {'label':'新人福利',
