@@ -18,7 +18,18 @@ class Home(object):
             'editor':'live_cell',
             'editor_ctx':  { 'title':'代理人系统',
                              'cells':[
-                                 {'label':'冲刺','click_express':'alert("pp")'}
+                                 {'label':'玩家充值',
+                                  'fields_ctx':{**RechargeForm().get_head_context(),
+                                                'title':'玩家充值'},
+                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)'},
+                                 {'label':'新人福利',
+                                   'fields_ctx':{**NewPlayerGift().get_head_context(),
+                                                'title':'新人福利'},
+                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)'},
+                             ],
+                             'bottom_editors':[
+                                 {'label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'warning',
+                                  'css':'.logout-btn{width: 74vw;margin: 13vw;margin-top: 1rem}','class':"logout-btn"}
                              ]
                            }
         }    
@@ -26,12 +37,12 @@ class Home(object):
 
 class RechargeForm(FieldsMobile):
     
-    def get_operations(self):
-        ops = super().get_operations()
-        ops += [
-            {'name':'quit','label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'default'}
-        ]
-        return ops
+    #def get_operations(self):
+        #ops = super().get_operations()
+        #ops += [
+            #{'name':'quit','label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'default'}
+        #]
+        #return ops
     
     def get_heads(self):
         return [
@@ -77,7 +88,25 @@ class RechargeForm(FieldsMobile):
                                 amount=self.kw.get('recharge_amount'),
                                 status=1)
        
-        
+
+class NewPlayerGift(FieldsMobile):
+    def get_heads(self):
+        return [
+             {'name':'game','editor':'com-field-select','label':'游戏','required':True,'options':[
+                {'value':x.pk,'label':str(x)} for x in Game.objects.all()
+                ]},
+            {'name':'block','editor':'com-field-select',
+             'options':[{'value':x.pk,'label':str(x)} for x in GameBlock.objects.all()],
+             'label':'区服','required':True},
+            {'name':'account','editor':'com-field-linetext',
+             'label':'账号','required':True},
+            {'name':'character','editor':'com-field-select','options':[],
+             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.head.options=options   }})       }     } )
+             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.head.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             ''' ,
+             'label':'角色','required':True},
+        ]
+
 
 @director_view('get_charecter')
 def get_charecter(account):
