@@ -15,13 +15,13 @@ class Home(object):
     
     def get_context(self):
         return {
-            'editor':'live_cell',
-            'editor_ctx':  { 'title':'代理人系统',
-                             'cells':[
-                                 {'label':'冲刺','click_express':'alert("pp")'}
-                             ]
+            'editor':'live_fields',
+            'editor_ctx':  { 'title':'玩家充值',
+                             #'back_action':'location="/mb/index"',
+                             'after_save':'cfg.toast("充值成功!");scope.vc.row.character="";scope.vc.row.account="";scope.vc.row.recharge_amount=""',
+                             **RechargeForm().get_context() 
                            }
-        }    
+        }
     
 
 class RechargeForm(FieldsMobile):
