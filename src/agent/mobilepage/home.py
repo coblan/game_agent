@@ -25,6 +25,14 @@ class Home(object):
     
 
 class RechargeForm(FieldsMobile):
+    
+    def get_operations(self):
+        ops = super().get_operations()
+        ops += [
+            {'name':'quit','label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'default'}
+        ]
+        return ops
+    
     def get_heads(self):
         return [
             {'name':'game','editor':'com-field-select','label':'游戏','required':True,'options':[
