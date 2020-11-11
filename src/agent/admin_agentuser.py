@@ -3,6 +3,7 @@ from .models import AgentUser
 from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group
 from django.utils import timezone
 from helpers.func.random_str import get_str,short_uuid
+from django.conf import settings
 
 class AgentUserPage(TablePage):
     def get_label(self):
@@ -19,18 +20,21 @@ class AgentUserPage(TablePage):
         def getExtraHead(self):
             return [
                 {'name':'is_active','label':'激活','editor':'com-table-bool-shower'},
+                {'name':'regist_url','label':'注册地址','editor':'com-table-span'},
             ]
         
         def dict_row(self, inst):
             return {
                 'username':inst.account.username,
                 'is_active':inst.account.is_active,
+                'regist_url': '%s/regist/%s'%(settings.SELF_DOMAIN,inst.regist_code)
             }
         
         def dict_head(self, head):
             width = {
                 'name':150,
-                'account':150
+                'account':150,
+                'regist_url':300
             }
             if head['name'] in width:
                 head['width'] = width[head['name']]

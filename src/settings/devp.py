@@ -28,3 +28,5 @@ DATABASES = {
                 
         } , 
 } 
+
+SELF_DOMAIN = 'http://localhost:8300'

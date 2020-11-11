@@ -35,3 +35,5 @@ DATABASES = {
 } 
 
 ALLOWED_HOSTS=['*']
+
+SELF_DOMAIN = 'http://gameagent.enjoyst.com'
