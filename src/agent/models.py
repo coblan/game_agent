@@ -16,6 +16,7 @@ class AgentUser(models.Model):
 class GamePlayer(models.Model):
     acount = models.CharField('玩家账号',max_length=100,)
     agent= models.ForeignKey(AgentUser,verbose_name='代理人')
+    new_guy_gift = models.BooleanField(verbose_name='新人福利',default=False)
     
     def __str__(self):
         return self.acount

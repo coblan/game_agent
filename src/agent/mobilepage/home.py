@@ -4,6 +4,7 @@ from helpers.mobile.shortcut import FieldsMobile
 from agent.game_models import TbCharacter
 from agent.models import GameBlock,GamePlayer,Recharge,Game
 from django.core.exceptions import PermissionDenied 
+from agent.port_game import game_recharge
 
 class Home(object):
     def __init__(self, request, engin):
@@ -20,12 +21,17 @@ class Home(object):
                              'cells':[
                                  {'label':'玩家充值',
                                   'fields_ctx':{**RechargeForm().get_context(),
+                                                 'after_save_express':'cfg.toast("充值成功!");scope.vc.row.character="";scope.vc.row.account="";scope.vc.row.recharge_amount=""',
                                                 'title':'玩家充值'},
-                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)'},
+                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)',
+                                  },
                                  {'label':'新人福利',
-                                   'fields_ctx':{**NewPlayerGift().get_head_context(),
+                                   'fields_ctx':{**NewPlayerGift().get_context(),
+                                                 'after_save_express':'cfg.toast("发放成功!");scope.vc.row.character="";scope.vc.row.account="";',
                                                 'title':'新人福利'},
-                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)'},
+                                  'click_express':'live_root.open_live(live_fields,scope.head.fields_ctx)',
+                                  
+                                  },
                              ],
                              'bottom_editors':[
                                  {'label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'warning',
@@ -87,9 +93,20 @@ class RechargeForm(FieldsMobile):
                                 pc_id=self.kw.get('character'),
                                 amount=self.kw.get('recharge_amount'),
                                 status=1)
+        game_recharge(self.kw.get('character'), self.kw.get('recharge_amount'))
        
 
 class NewPlayerGift(FieldsMobile):
+    
+    def get_operations(self):
+        ops = super().get_operations()
+        for op in ops:
+            if op['name']=='save':
+                op['label'] = '发放'
+                #op['after_save_express'] ='cfg.hide_load();cfg.toast("发放成功")'
+                #op['click_express'] = 'scope.ps.vc.ctx.after_save_express=scope.head.after_save_express; scope.ps.vc.submit()'
+        return ops
+    
     def get_heads(self):
         return [
              {'name':'game','editor':'com-field-select','label':'游戏','required':True,'options':[
@@ -101,11 +118,18 @@ class NewPlayerGift(FieldsMobile):
             {'name':'account','editor':'com-field-linetext',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.head.options=options   }})       }     } )
+             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_new_guy_gift",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.head.options=options   }})       }     } )
              scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.head.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
              'label':'角色','required':True},
         ]
+    
+    def save_form(self):
+        game_recharge(self.kw.get('character'), 20000)
+        game_recharge(self.kw.get('character'), 999,'getexp04')
+        player = GamePlayer.objects.get(acount = self.kw.get('account'),new_guy_gift= False)
+        player.new_guy_gift = True
+        player.save()
 
 
 @director_view('get_charecter')
@@ -121,9 +145,22 @@ def get_charecter(account):
         })
     return options
 
+@director_view('get_new_guy_gift')
+def get_new_guy_gift(account):
+    '''account_id='wyh99999 ''' 
+    options =[]
+    crt_user = get_request_cache()['request'].user
+    if not GamePlayer.objects.filter(agent__account = crt_user,acount=account,new_guy_gift=False).exists():
+        raise UserWarning('该用户不存在或者已经领取过新人福利。')
+    for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
+        options.append({
+            'value':inst.pc_id,'label':inst.pc_name
+        })
+    return options
 
 director.update({
-    'recharge_mb.form':RechargeForm
+    'recharge_mb.form':RechargeForm,
+    'recharge_mb.new_guy_gift':NewPlayerGift,
 })
 
 mb_page.update({
