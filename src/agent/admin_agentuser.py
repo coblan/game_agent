@@ -66,6 +66,7 @@ class AgentUserForm(ModelFields):
         if self.is_create and not inst.pk: 
             return {
                 'is_active':True,
+                
             }            
         else:
             inst.account.refresh_from_db()
@@ -74,6 +75,7 @@ class AgentUserForm(ModelFields):
                 'is_active':inst.account.is_active, 
                 'account':inst.account.pk,
                 '_account_label':str(inst.account),
+                'regist_url': '%s/regist/%s'%(settings.SELF_DOMAIN,inst.regist_code)
             }
         
     def clean(self):
