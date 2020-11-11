@@ -19,6 +19,7 @@ from hello.engin_menu import PcMenu,MBpageEngine
 from helpers.authuser.engin_view import AuthEngine
 from helpers.director.views import director_view
 from django.views.generic import RedirectView 
+from agent.views import player_regist,postregister
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
@@ -27,5 +28,7 @@ urlpatterns = [
     url(r'^dapi/(?P<director_name>[\w\/\.]+)?/?$',director_view),
     url(r'^d/',include('helpers.director.urls'),name='director'),
     url(r'^mb/([\w\.]+)/?$',MBpageEngine.as_view(),name=MBpageEngine.url_name),
+    url(r'^regist/(?P<regist_code>\w+)',player_regist),
+    url(r'^postregister$',postregister),
     url(r'^$',RedirectView.as_view(url='/pc/enginhome')) ,    
 ]

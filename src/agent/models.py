@@ -7,6 +7,8 @@ class AgentUser(models.Model):
     name = models.CharField('代理人名字',max_length=100,)
     account = models.OneToOneField(User,verbose_name='账号',null=True)
     amount = models.IntegerField(verbose_name='余额',default=0)
+    regist_code = models.CharField('注册码',max_length=20,blank=True,)
+    qq = models.CharField('QQ号码',max_length=20,blank=True)
     
     def __str__(self):
         return self.name

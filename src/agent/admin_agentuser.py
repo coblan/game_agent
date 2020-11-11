@@ -2,6 +2,7 @@ from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,d
 from .models import AgentUser
 from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group
 from django.utils import timezone
+from helpers.func.random_str import get_str,short_uuid
 
 class AgentUserPage(TablePage):
     def get_label(self):
@@ -49,6 +50,7 @@ class AgentAcount(UserFields):
 
 class AgentUserForm(ModelFields):
     #hide_fields=['account']
+    readonly=['regist_code','amount']
     class Meta:
         model = AgentUser
         exclude =['id','account']
@@ -94,6 +96,17 @@ class AgentUserForm(ModelFields):
         else:
             error =obj.get_errors()
             self._errors.update(error)
+    
+    def after_save(self):
+        if not self.instance.regist_code:
+            for i in range(50): # 重试50次来写入 , 应该不会有问题了
+                regist_code = get_str(4)
+                count = AgentUser.objects.filter(pk =self.instance.pk).exclude(regist_code=regist_code).update(regist_code=regist_code)
+                if count >=1:
+                    self.instance .refresh_from_db()
+                    break
+                
+                  
             #for k,v in error.items():
                 #self.add_error( k,v )        
       
