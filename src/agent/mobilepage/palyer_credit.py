@@ -17,7 +17,7 @@ class PlayerCredit(object):
         return {
             'editor':'live_fields',
             'editor_ctx':  { 
-                'title':'领取积分',
+                'title':'累计充值奖励',
                 **CreditForm().get_context(),
                      }
             
