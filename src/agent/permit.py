@@ -3,6 +3,6 @@ from .models import GamePlayer,Recharge
 permits = [
     ('GamePlayer', model_read_permit(GamePlayer), model_to_name(GamePlayer), 'model' ),
     #('GamePlayer.edit', model_full_permit(GamePlayer), model_to_name(GamePlayer) , 'model'), 
-      ('Recharge', model_read_permit(Recharge), model_to_name(Recharge), 'model' ),
+    ('Recharge', model_read_permit(Recharge), model_to_name(Recharge), 'model' ),
 ]
 add_permits(permits)

@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,has_permit
 from .models import Recharge
 
 class RechargePage(TablePage):
@@ -11,6 +11,11 @@ class RechargePage(TablePage):
     class tableCls(ModelTable):
         model = Recharge
         exclude =[]
+        
+        def inn_filter(self, query):
+            if has_permit(self.crt_user,'-agent_constraint'):
+                query = query.filter(agent__account = self.crt_user)
+            return query
         
         def get_operation(self):
             ops = super().get_operation()

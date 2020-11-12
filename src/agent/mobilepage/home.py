@@ -5,6 +5,7 @@ from agent.game_models import TbCharacter
 from agent.models import GameBlock,GamePlayer,Recharge,Game
 from django.core.exceptions import PermissionDenied 
 from agent.port_game import game_recharge
+from django.utils import timezone
 
 class Home(object):
     def __init__(self, request, engin):
@@ -86,6 +87,17 @@ class RechargeForm(FieldsMobile):
             raise UserWarning('余额不足')
         self.crt_user.agentuser.save()
         player = GamePlayer.objects.get(acount=self.kw.get('account'))
+        player.credit += self.kw.get('recharge_amount')
+        player.save()
+        
+        record = Recharge.objects.filter( player=player,).order_by('-createtime').first()
+        if record and record.createtime.date() < timezone.now().date():
+            ls = player.has_get.split(',')
+            if '30' in ls:
+                ls.remove('30')
+                player.has_get = ','.join(ls)
+                player.save()
+        
         Recharge.objects.create(agent=self.crt_user.agentuser,game_id=self.kw.get('game'),
                                 block_id=self.kw.get('block'),
                                 player=player,

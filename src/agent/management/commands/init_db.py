@@ -13,7 +13,7 @@ class Command(BaseCommand):
         group.name = '代理人'
         group.save()
         md , _ = PermitModel.objects.get_or_create(group=group)
-        permits =['GamePlayer','Recharge']
+        permits =['GamePlayer','Recharge','-agent_constraint']
         md.names= ';'.join(permits)
         md.save()
 

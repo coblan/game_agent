@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,has_permit
 from .models import GamePlayer
 
 class PlayerPage(TablePage):
@@ -12,6 +12,12 @@ class PlayerPage(TablePage):
         model = GamePlayer
         exclude =['id']
         pop_edit_fields = ['acount']
+        
+        def inn_filter(self, query):
+            if has_permit(self.crt_user,'-agent_constraint'):
+                query = query.filter(agent__account=self.crt_user)
+            return query
+                
         
         def dict_head(self, head):
             width ={

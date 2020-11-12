@@ -12,5 +12,6 @@ from . import admin_game
 #Group.objects.get_or_create(name='代理人')
 
 from . mobilepage import home
+from . mobilepage import palyer_credit
 
 from . import permit
