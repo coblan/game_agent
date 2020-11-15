@@ -31,4 +31,4 @@ DATABASES = {
 
 ALLOWED_HOSTS=['*']
 
-SELF_DOMAIN = 'http://gameagent.enjoyst.com'
+SELF_DOMAIN = 'http://47.113.186.102'
