@@ -105,7 +105,8 @@ class RechargeForm(FieldsMobile):
                                 pc_id=self.kw.get('character'),
                                 amount=self.kw.get('recharge_amount'),
                                 status=1)
-        game_recharge(self.kw.get('character'), self.kw.get('recharge_amount'))
+        diamond_amount = self.kw.get('recharge_amount') * 300
+        game_recharge(self.kw.get('character'), diamond_amount )
        
 
 class NewPlayerGift(FieldsMobile):

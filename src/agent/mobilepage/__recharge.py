@@ -76,6 +76,7 @@ class RechargeForm(FieldsMobile):
                                 pc_id=self.kw.get('character'),
                                 amount=self.kw.get('recharge_amount'),
                                 status=1)
+        
        
         
 
