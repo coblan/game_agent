@@ -30,3 +30,8 @@ DATABASES = {
 } 
 
 SELF_DOMAIN = 'http://localhost:8300'
+
+GAME_PROXY = {
+     'http':'socks5://47.113.186.102:10888',
+      'https':'socks5://47.113.186.102:10888',
+}
