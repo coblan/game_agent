@@ -63,8 +63,8 @@ class RechargeForm(FieldsMobile):
              #'mounted_express':'scope.vc.$on("blur",(e)=>{live_root.$emit("account_change",e)})',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.head.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.head.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
+             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
              'label':'角色','required':True},
             {'name':'amount','editor':'com-field-int','label':'当前余额','readonly':True},
@@ -131,8 +131,8 @@ class NewPlayerGift(FieldsMobile):
             {'name':'account','editor':'com-field-linetext',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_new_guy_gift",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.head.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.head.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("get_new_guy_gift",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
+             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
              'label':'角色','required':True},
         ]

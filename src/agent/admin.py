@@ -13,5 +13,6 @@ from . import admin_game
 
 from . mobilepage import home
 from . mobilepage import palyer_credit
+from . mobilepage import player_store
 
 from . import permit
