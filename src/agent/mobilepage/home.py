@@ -138,11 +138,17 @@ class NewPlayerGift(FieldsMobile):
         ]
     
     def save_form(self):
-        game_recharge(self.kw.get('character'), 20000)
-        game_recharge(self.kw.get('character'), 999,'getexp04')
-        player = GamePlayer.objects.get(acount = self.kw.get('account'),new_guy_gift= False)
-        player.new_guy_gift = True
-        player.save()
+        try:
+            player = GamePlayer.objects.get(acount = self.kw.get('account'))
+            if player.agent != self.crt_user.agentuser:
+                raise UserWarning('该玩家不属于本代理')
+        except GamePlayer.DoesNotExist:
+            player = GamePlayer.objects.create(acount = self.kw.get('account'),agent = self.crt_user.agentuser)
+        if not player.new_guy_gift :
+            player.new_guy_gift = True
+            player.save()         
+            game_recharge(self.kw.get('character'), 20000)
+            game_recharge(self.kw.get('character'), 999,'getexp04')        
 
 
 @director_view('get_charecter')
@@ -163,8 +169,14 @@ def get_new_guy_gift(account):
     '''account_id='wyh99999 ''' 
     options =[]
     crt_user = get_request_cache()['request'].user
-    if not GamePlayer.objects.filter(agent__account = crt_user,acount=account,new_guy_gift=False).exists():
-        raise UserWarning('该用户不存在或者已经领取过新人福利。')
+    
+    
+    if not GamePlayer.objects.filter(acount=account).exists():
+        if not TbCharacter.objects.using('game_sqlserver').filter(account_id=account).exists():
+            raise UserWarning('没有找到角色!')
+    
+    elif not GamePlayer.objects.filter(agent__account = crt_user,acount=account,new_guy_gift=False).exists():
+        raise UserWarning('该用户不属于本代理或已经领取过新人福利。')
     for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
         options.append({
             'value':inst.pc_id,'label':inst.pc_name
