@@ -18,6 +18,7 @@ class GamePlayer(models.Model):
     agent= models.ForeignKey(AgentUser,verbose_name='代理人')
     new_guy_gift = models.BooleanField(verbose_name='新人福利',default=False)
     credit = models.IntegerField(verbose_name='积分',default=0)
+    history_credit = models.IntegerField(verbose_name='历史积分',default=0)
     has_get = models.CharField('已领取',max_length=200,blank=True)
     desp = models.CharField('备注',max_length=300,blank=True)
     createtime = models.DateTimeField(verbose_name='创建时间',auto_now_add=True)

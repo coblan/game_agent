@@ -36,7 +36,7 @@ class Home(object):
                              ],
                              'bottom_editors':[
                                  {'label':'退出登录','click_express':'location="/accounts/logout?next=/mb/home"','editor':'com-btn','type':'warning',
-                                  'css':'.logout-btn{width: 74vw;margin: 13vw;margin-top: 1rem}','class':"logout-btn"}
+                                  'css':'.logout-btn{width: 74%;margin: 13%;margin-top: 1rem}','class':"logout-btn"}
                              ]
                            }
         }    
@@ -88,6 +88,7 @@ class RechargeForm(FieldsMobile):
         self.crt_user.agentuser.save()
         player = GamePlayer.objects.get(acount=self.kw.get('account'))
         player.credit += self.kw.get('recharge_amount')
+        player.history_credit += self.kw.get('recharge_amount')
         player.save()
         
         record = Recharge.objects.filter( player=player,).order_by('-createtime').first()

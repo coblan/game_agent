@@ -40,31 +40,31 @@ class CreditForm(FieldsMobile):
              scope.vc.$watch("row.character",v=>{ debugger;  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
              'label':'角色','required':True},
-            {'name':'credit','label':'累积积分','editor':'com-field-select','required':True,
+            {'name':'history_credit','label':'累积积分','editor':'com-field-select','required':True,
              'options':[{'value':x['value'],'label':x['text']} for x in credit_bonus]},
             {'name':'content','label':'奖励内容','editor':'com-field-blocktext','readonly':True,
-             'mounted_express':'scope.vc.$watch("row.credit",v=>{Vue.set(scope.row,"content",scope.head.label_option[v])})',
+             'mounted_express':'scope.vc.$watch("row.history_credit",v=>{Vue.set(scope.row,"content",scope.head.label_option[v])})',
              'label_option':{x['value']: x['label']  for x in credit_bonus} }
         ]
     
     def clean(self):
         self.player = GamePlayer.objects.get(acount = self.kw.get('account') )
-        if self.player.credit <  self.kw.get('credit'):
-            self.add_error('credit','您的积分不够,当前:%s'%self.player.credit)
+        if self.player.history_credit <  self.kw.get('history_credit'):
+            self.add_error('history_credit','您的累积积分不够,当前:%s'%self.player.history_credit)
         ls = [x for x in self.player.has_get.split(',') if x]
         self.player.has_get_list = ls
-        if str( self.kw.get('credit') ) in self.player.has_get_list:
-            self.add_error('credit','您已经领取过了该积分段奖品')
+        if str( self.kw.get('history_credit') ) in self.player.has_get_list:
+            self.add_error('history_credit','您已经领取过了该积分段奖品')
             
     def save_form(self):
         # 30 已经的只能领一次
    
-        self.player.has_get_list.append(self.kw.get('credit'))
+        self.player.has_get_list.append(self.kw.get('history_credit'))
         self.player.has_get = ','.join( [str(x) for x in self.player.has_get_list] )
         self.player.save()
 
         for item in credit_bonus:
-            if item.get('value') ==self.kw.get('credit'):
+            if item.get('value') ==self.kw.get('history_credit'):
                 content = item.get('content')
         for k,v in content.items():
             game_recharge(self.kw.get('character'), v,k)
