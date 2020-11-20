@@ -97,7 +97,7 @@ class RechargeForm(FieldsMobile):
                 ls.remove('30')
                 player.has_get = ','.join(ls)
                 player.save()
-        
+
         Recharge.objects.create(agent=self.crt_user.agentuser,game_id=self.kw.get('game'),
                                 block_id=self.kw.get('block'),
                                 player=player,
@@ -105,7 +105,12 @@ class RechargeForm(FieldsMobile):
                                 pc_id=self.kw.get('character'),
                                 amount=self.kw.get('recharge_amount'),
                                 status=1)
-        diamond_amount = self.kw.get('recharge_amount') * 300
+        if record:
+            mutiple = 300
+        else:
+            mutiple = 600
+            
+        diamond_amount = self.kw.get('recharge_amount') * mutiple
         game_recharge(self.kw.get('character'), diamond_amount )
        
 
