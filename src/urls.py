@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^mb/([\w\.]+)/?$',MBpageEngine.as_view(),name=MBpageEngine.url_name),
     url(r'^regist/(?P<regist_code>\w+)',player_regist),
     url(r'^postregister$',postregister),
-    url(r'^$',RedirectView.as_view(url='/pc/enginhome')) ,    
+    url(r'^$',RedirectView.as_view(url='/pc/phome')) ,    
 ]
