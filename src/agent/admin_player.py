@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,has_permit
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,has_permit,RowFilter
 from .models import GamePlayer
 
 class PlayerPage(TablePage):
@@ -23,10 +23,21 @@ class PlayerPage(TablePage):
             width ={
                 'acount':200,
                 'agent':200,
+                'desp':200,
             }
             if head['name'] in width:
                 head['width'] = width[head['name']]
             return head
+        
+        class filters(RowFilter):
+            names = ['acount','agent__name']
+            icontains = ['acount','agent__name']
+            fields_sort=['acount','agent__name']
+            def getExtraHead(self):
+                return [
+                    {'name':'agent__name','label':'代理人','editor':'com-filter-text','visible':not has_permit(self.crt_user,'-agent_constraint')},
+
+                ]
 
 class PlayerForm(ModelFields):
     class Meta:

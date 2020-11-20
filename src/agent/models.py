@@ -19,8 +19,9 @@ class GamePlayer(models.Model):
     new_guy_gift = models.BooleanField(verbose_name='新人福利',default=False)
     credit = models.IntegerField(verbose_name='积分',default=0)
     has_get = models.CharField('已领取',max_length=200,blank=True)
+    desp = models.CharField('备注',max_length=300,blank=True)
     createtime = models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
-    
+
     def __str__(self):
         return self.acount
 

@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,has_permit
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,has_permit,RowFilter
 from .models import Recharge
 
 class RechargePage(TablePage):
@@ -26,6 +26,22 @@ class RechargePage(TablePage):
                         op['label'] = '充值'
                         out.append(op)
             return out
+        
+        class filters(RowFilter): 
+            @property
+            def names(self):
+                names_ = ['player__acount']
+                if not has_permit(self.crt_user,'-agent_constraint'):
+                    names_.append('agent__name')
+                return names_
+            
+            icontains=['player__acount','agent__name']
+            range_fields =['createtime']
+            def getExtraHead(self):
+                return [
+                    {'name':'player__acount','label':'玩家账号','editor':'com-filter-text'},
+                    {'name':'agent__name','label':'代理人','editor':'com-filter-text','visible':not has_permit(self.crt_user,'-agent_constraint')},
+                ]
 
 class RechargeForm(ModelFields):
     class Meta:

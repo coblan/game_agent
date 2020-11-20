@@ -24,7 +24,7 @@ class PcMenu(BaseEngine):
     def menu(self):
         crt_user = self.request.user
         menu = [
-            {'label':'首页','url':page('enginhome'),'icon': fa('fa-home')},
+            {'label':'首页','url':page('phome'),'icon': fa('fa-home')},
           
           
             {'label':'游戏管理','icon': fa('fa-gamepad'), 
