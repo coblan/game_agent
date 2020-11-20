@@ -70,7 +70,7 @@ class PlayerStoreForm(FieldsMobile):
     def clean(self):
         self.player = GamePlayer.objects.get(acount = self.kw.get('account') )
         self.kind_inst = findone(store_menu,{'value': self.kw.get('kind')} )
-        self.product = findone(kind_inst.get('items'),{'value':self.kw.get('product')})
+        self.product = findone(self.kind_inst.get('items'),{'value':self.kw.get('product')})
         
         if self.player.credit < self.kind_inst.get('credit' ) : #  self.kw.get('credit'):
             self.add_error('credit','您的积分不够,当前:%s'%self.player.credit)
