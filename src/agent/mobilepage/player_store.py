@@ -80,7 +80,7 @@ class PlayerStoreForm(FieldsMobile):
         self.player.credit -= self.product.get('amount')
         self.player.save()
         game_recharge(self.kw.get('character'),self.product.get('amount'), self.product.get('value'))
-        operation_log('用户%(account)s为其角色%(character)s提取物品%skb10009()s'%self.kw)
+        operation_log('用户%(account)s为其角色%(character)s提取物品%(product)s'%self.kw)
         
         #self.player.has_get_list.append(self.kw.get('credit'))
         #self.player.has_get = ','.join( [str(x) for x in self.player.has_get_list] )
