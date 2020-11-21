@@ -65,5 +65,13 @@ class AgentRecharge(models.Model):
     amount = models.IntegerField(verbose_name='充值金额')
     createtime= models.DateTimeField(verbose_name='充值时间',auto_now_add=True)
     admin = models.ForeignKey(User,verbose_name='操作人员',null=True)
+
+
+class StoreRecord(models.Model):
+    player = models.ForeignKey(to=GamePlayer,verbose_name='购买人')
+    character = models.CharField('角色',max_length=100,)
+    code = models.CharField(verbose_name='物品代码',max_length=50)
+    credit = models.IntegerField('耗费积分',default=0)
+    createtime= models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
     
     

@@ -1,7 +1,7 @@
 from hello.engin_menu import mb_page
 from helpers.director.shortcut import Fields,director,director_view,get_request_cache
 from helpers.mobile .shortcut import FieldsMobile
-from agent.models import Game,GameBlock,GamePlayer
+from agent.models import Game,GameBlock,GamePlayer,StoreRecord
 from agent.game_models import TbCharacter
 from agent.port_game import game_recharge
 from helpers.func.collection.ex import findone
@@ -76,11 +76,15 @@ class PlayerStoreForm(FieldsMobile):
             self.add_error('credit','您的积分不够,当前:%s'%self.player.credit)
 
     def save_form(self):
-        # 30 已经的只能领一次
-        self.player.credit -= self.product.get('amount')
+
+        self.player.credit -= self.kind_inst.get('credit' ) #  self.product.get('amount')
         self.player.save()
         game_recharge(self.kw.get('character'),self.product.get('amount'), self.product.get('value'))
         operation_log('用户%(account)s为其角色%(character)s提取物品%(product)s'%self.kw)
+        StoreRecord.objects.create(player = self.player,
+                                   credit = self.kind_inst.get('credit' ),
+                                   character= self.kw.get('character'),
+                                   code= self.product.get('value'))
         
         #self.player.has_get_list.append(self.kw.get('credit'))
         #self.player.has_get = ','.join( [str(x) for x in self.player.has_get_list] )
