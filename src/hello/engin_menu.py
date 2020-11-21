@@ -35,7 +35,8 @@ class PcMenu(BaseEngine):
             {'label':'玩家管理','icon': fa('fa-gamepad'), 
              'submenu':[
                  {'label':'玩家列表','url':page('player'),'visible':can_touch(GamePlayer, crt_user)},
-                 {'label':'充值记录','url':page('recharge'),'visible':can_touch(Recharge, crt_user)}
+                 {'label':'充值记录','url':page('recharge'),'visible':can_touch(Recharge, crt_user)},
+                 {'label':'积分商城记录','url':page('admin_store'),'visible':can_touch(StoreRecord,crt_user)},
                  ]},
             
             {'label': '代理人管理', 'icon': fa('fa-user-circle-o'), 

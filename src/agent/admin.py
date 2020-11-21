@@ -5,7 +5,7 @@ from helpers.case.jb_admin.admin_user import UserPage,UserFields,Group
 from . import admin_agentuser
 from . import admin_recharge
 from . import admin_agent_recharge
-
+from . import admin_store
 from . import admin_player
 
 from . import admin_game
