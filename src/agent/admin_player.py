@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,has_permit,RowFilter
+from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,has_permit,RowFilter,RowSort
 from .models import GamePlayer
 
 class PlayerPage(TablePage):
@@ -38,6 +38,9 @@ class PlayerPage(TablePage):
                     {'name':'agent__name','label':'代理人','editor':'com-filter-text','visible':not has_permit(self.crt_user,'-agent_constraint')},
 
                 ]
+        
+        class sort(RowSort):
+            names = ['credit','history_credit']
 
 class PlayerForm(ModelFields):
     class Meta:
