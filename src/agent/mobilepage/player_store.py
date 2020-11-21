@@ -143,7 +143,7 @@ store_menu=[
         {'value':'ess20003','label':'最高级青蓝精气(蓝色)数量100','amount':100},
         {'value':'ess10003','label':'最高级赤红精气(红色)数量100','amount':100},
         {'value':'ess00003','label':'最高级洪门精气(黄色)数量100','amount':100},
-        {'value':'getexp04','label':'最上级经验药水(数量4995)','amount':4995}
+        {'value':'getexp04','label':'最上级经验药水(数量999)','amount':999}
         
     ]}
 ]
