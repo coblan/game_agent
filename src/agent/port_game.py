@@ -21,8 +21,7 @@ def game_recharge(id_N,qty,pwd_P=None):
     }
     rt = requests.post(url,data=data,proxies= getattr(settings,'GAME_PROXY',{}) )
     if rt.status_code == 200:
-        print( '发送物品数量:%s;接受玩家:%s'%(qty,id_N) )
-        general_log.debug('发送物品数量:%s;接受玩家:%s'%(qty,id_N) )
+        general_log.debug('发送物品:%s;发送物品数量:%s;接受玩家:%s'%(pwd_P,qty,id_N) )
     else:
         general_log.error('发送物品服务器报错%s'% rt.text )
         raise UserWarning('发送物品服务器报错,请联系管理员')
