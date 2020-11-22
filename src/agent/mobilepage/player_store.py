@@ -138,11 +138,11 @@ store_menu=[
         {'value':'sell0009','label':'银币袋子(数量500)','amount':500,},
         {'value':'pac10024','label':'武器强化材料包(数量200)','amount':200},
         {'value':'pac10025','label':'首饰强化材料包(数量200)','amount':200},
-        {'value':'box00003','label':'上乘武功精气(数量200)','amount':200},
-        {'value':'box00013','label':'上乘内功精气(数量200)','amount':200},
-        {'value':'ess20003','label':'最高级青蓝精气(蓝色)数量100','amount':100},
-        {'value':'ess10003','label':'最高级赤红精气(红色)数量100','amount':100},
-        {'value':'ess00003','label':'最高级洪门精气(黄色)数量100','amount':100},
+        {'value':'box00003','label':'上乘武功精气(数量200)','amount':20},
+        {'value':'box00013','label':'上乘内功精气(数量200)','amount':20},
+        {'value':'ess20003','label':'最高级青蓝精气(蓝色)数量100','amount':10},
+        {'value':'ess10003','label':'最高级赤红精气(红色)数量100','amount':10},
+        {'value':'ess00003','label':'最高级洪门精气(黄色)数量100','amount':10},
         {'value':'getexp04','label':'最上级经验药水(数量999)','amount':999}
         
     ]}
