@@ -36,7 +36,9 @@ class AgentRecharegePage(TablePage):
         
         def statistics(self, query):
             dc = query.aggregate(amount_sum=Sum('amount'))
-            self.footer={'amount':dc.get('amount_sum')}
+            self.footer={
+                '_label':'合计',
+                'amount':dc.get('amount_sum')}
             return query        
         
         @classmethod
