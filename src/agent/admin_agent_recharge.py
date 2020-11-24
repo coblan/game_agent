@@ -44,7 +44,7 @@ class AgentRecharegePage(TablePage):
             if '_searched' not in search_args:
                 now = timezone.now()
                 search_args['_searched'] =1
-                search_args['_start_createtime'] = (now - timezone.timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')
+                search_args['_start_createtime'] = now .strftime('%Y-%m-%d 00:00:00')
             return search_args        
         
         class filters(RowFilter):
