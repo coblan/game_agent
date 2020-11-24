@@ -1,5 +1,6 @@
 from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,has_permit,RowFilter
 from .models import Recharge
+from django.db.models import Sum
 
 class RechargePage(TablePage):
     def get_label(self):
@@ -26,6 +27,11 @@ class RechargePage(TablePage):
                         op['label'] = '充值'
                         out.append(op)
             return out
+        
+        def statistics(self, query):
+            dc = query.aggregate(amount_sum=Sum('amount'))
+            self.footer={'amount':dc.get('amount_sum')}
+            return query
         
         class filters(RowFilter): 
             @property

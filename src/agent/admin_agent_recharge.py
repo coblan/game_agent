@@ -1,5 +1,6 @@
 from helpers.director.shortcut import ModelTable,TablePage,ModelFields,director,page_dc,RowFilter
 from . models import AgentRecharge
+from django.db.models import Sum
 
 class AgentRecharegePage(TablePage):
     def get_label(self):
@@ -31,6 +32,11 @@ class AgentRecharegePage(TablePage):
                     op['label'] ='充值'
                     out .append(op)
             return out
+        
+        def statistics(self, query):
+            dc = query.aggregate(amount_sum=Sum('amount'))
+            self.footer={'amount':dc.get('amount_sum')}
+            return query        
         
         class filters(RowFilter):
             names =['agent']
