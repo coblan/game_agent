@@ -1,6 +1,7 @@
 from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,has_permit,RowFilter
 from .models import Recharge
 from django.db.models import Sum
+from django.utils import timezone
 
 class RechargePage(TablePage):
     def get_label(self):
@@ -27,6 +28,14 @@ class RechargePage(TablePage):
                         op['label'] = '充值'
                         out.append(op)
             return out
+        
+        @classmethod
+        def clean_search_args(cls, search_args):
+            if '_searched' not in search_args:
+                now = timezone.now()
+                search_args['_searched'] =1
+                search_args['_start_createtime'] = (now - timezone.timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')
+            return search_args
         
         def statistics(self, query):
             dc = query.aggregate(amount_sum=Sum('amount'))
