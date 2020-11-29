@@ -31,11 +31,12 @@ class BatchSendPage(FieldsPage):
         def save_form(self):
             players = re.split('[;,\n]+',self.player_list)
             for play in players:
+                palyer = play.strip()
                 if self.kw.get('item'):
-                    game_recharge(play,self.kw.get('amount'),self.kw.get('item'))
+                    game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
                 else:
                     # 钻石的时候没有item
-                    game_recharge(play,self.kw.get('amount'),)
+                    game_recharge(palyer,self.kw.get('amount'),)
 
         
 
