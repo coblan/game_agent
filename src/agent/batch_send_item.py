@@ -29,7 +29,7 @@ class BatchSendPage(FieldsPage):
             ]
         
         def save_form(self):
-            players = re.split('[;,\n]+',self.player_list)
+            players = re.split('[;,\n]+',self.kw.get('player_list'))
             for play in players:
                 palyer = play.strip()
                 if self.kw.get('item'):
