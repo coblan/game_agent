@@ -45,7 +45,8 @@ class PcMenu(BaseEngine):
                  {'label':'代理人充值','url':page('agentrechage'),'visible':can_touch(AgentRecharge, crt_user)},
                  
                  ]},
-             {'label':'批量发放','icon': fa('fa-user-circle-o'),'url':page('batch_send'),'visible':has_permit(crt_user,'batch_send')},
+             #{'label':'批量发放','icon': fa('fa-user-circle-o'),'url':page('batch_send'),'visible':has_permit(crt_user,'batch_send')},
+             
             #{'label': '域名列表', 'url': page('domain'), 'icon': fa('fa-clock-o'), 'visible': True},
 
             #{'label':'系统管理','url':page('cfg_admin'),'icon':fa('fa-clock-o'),'visible':crt_user.username=='admin'},
