@@ -7,7 +7,7 @@ from . import admin_recharge
 from . import admin_agent_recharge
 from . import admin_store
 from . import admin_player
-
+from . import batch_send_item
 from . import admin_game
 #Group.objects.get_or_create(name='代理人')
 

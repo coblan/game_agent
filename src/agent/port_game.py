@@ -11,7 +11,11 @@ def game_recharge(id_N,qty,pwd_P=None):
     pwd_P:物品标示
     '''
     rt = re.search('^10+(\d+)',str(id_N) )
-    id_N_id = rt.group(1)
+    if rt:
+        id_N_id = rt.group(1)
+    else:
+        # 手动输入的情况
+        id_N_id = id_N
     url = 'http://101.132.98.232:7777/s1/item_result.php'
     data = {
         "id_N": id_N_id,
