@@ -23,15 +23,23 @@ class BatchSendPage(FieldsPage):
         
         def get_heads(self):
             return [
-                {'name':'player_list','label':'接收玩家','editor':'com-field-blocktext','help_text':'以逗号，分号或者换行分割','required':True},
+                {'name':'player_list','label':'接收玩家','editor':'com-field-blocktext','help_text':'以逗号，分号或者换行分割;如果不填就是所有在线玩家',},
                 {'name':'item','label':'物品','editor':'com-field-linetext','help_text':'不填写表示钻石'},
                 {'name':'amount','label':'数量','editor':'com-field-int','required':True,'fv_rule':'integer(+);'},
             ]
         
         def save_form(self):
-            players = re.split('[;,\n]+',self.kw.get('player_list'))
-            for play in players:
-                palyer = play.strip()
+            if self.kw.get('player_list'):
+                players = re.split('[;,\n]+',self.kw.get('player_list'))
+                for play in players:
+                    palyer = play.strip()
+                    if self.kw.get('item'):
+                        game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
+                    else:
+                        # 钻石的时候没有item
+                        game_recharge(palyer,self.kw.get('amount'),)
+            else:
+                palyer = ''
                 if self.kw.get('item'):
                     game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
                 else:
