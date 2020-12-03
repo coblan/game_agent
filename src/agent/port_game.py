@@ -5,7 +5,7 @@ import logging
 
 general_log = logging.getLogger('general_log')
 
-def game_recharge(id_N='',qty=None,pwd_P=None):
+def game_recharge(id_N=None,qty=None,pwd_P=None):
     '''id_N:玩家id
     qty: 数量
     pwd_P:物品标示

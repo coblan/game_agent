@@ -39,7 +39,7 @@ class BatchSendPage(FieldsPage):
                         # 钻石的时候没有item
                         game_recharge(palyer,self.kw.get('amount'),)
             else:
-                palyer = ''
+                palyer = None
                 if self.kw.get('item'):
                     game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
                 else:
