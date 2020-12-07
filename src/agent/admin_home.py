@@ -50,7 +50,8 @@ class MyHome(object):
         recharge_amount = []
         for inst in recharge_query.filter(createtime__date__gte=month_ago.date()).annotate(date = TruncDate('createtime')).values('date').annotate(amount=Sum('amount')):
             recharge_amount.append(inst)
-        
+        new_player.reverse()
+        recharge_amount.reverse()
         return {
             'editor':'com-layout-vertical',
             'editor_ctx':{
@@ -69,7 +70,7 @@ class MyHome(object):
                          'label':'ss',
                          'name':'xx',
                          'mounted_express':'scope.vc.draw()',
-                         'rows':reversed(new_player),
+                         'rows':new_player,
                          'x':'date',
                          'y':[{'name':'count', 'color':'#27B6AC','label':'新手玩家'},# 'type':'line',
                               ],                         
@@ -79,7 +80,7 @@ class MyHome(object):
                          'label':'ss',
                          'name':'x2',
                          'mounted_express':'scope.vc.draw()',
-                         'rows':reversed( recharge_amount ),
+                         'rows':recharge_amount ,
                          'x':'date',
                          'y':[{'name':'amount', 'label':'充值数量'}, #'type':'line',
                               ],                         
