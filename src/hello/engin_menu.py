@@ -66,7 +66,9 @@ class PcMenu(BaseEngine):
     def custome_ctx(self, ctx):
         ctx['extra_js'] = ctx.get('extra_js',[])
         ctx['extra_js'].append('data_chart')
+        ctx['extra_js'].append('echarts')
         ctx['menu_search'] = False
+           
         return ctx
 
 PcMenu.add_pages(page_dc)
