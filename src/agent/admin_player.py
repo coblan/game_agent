@@ -17,7 +17,24 @@ class PlayerPage(TablePage):
             if has_permit(self.crt_user,'-agent_constraint'):
                 query = query.filter(agent__account=self.crt_user)
             return query
-                
+        
+        def get_head_context(self):
+            ctx = super().get_head_context()
+            heads_names = [head['name'] for head in ctx.get('heads')]
+            ctx.update({
+                'advise_heads':heads_names,
+            })
+            return ctx        
+        
+        def get_operation(self):
+            ops = super().get_operation()
+            ops += [
+                {'editor':'com-btn',
+                 'label':'设置列',
+                 'icon':'el-icon-s-tools',
+                 'action':'cfg.pop_vue_com("com-panel-table-setting",{table_ps:scope.ps,title:"设置列"})'},
+            ]
+            return ops
         
         def dict_head(self, head):
             width ={

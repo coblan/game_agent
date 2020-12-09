@@ -19,17 +19,29 @@ class BatchSendPage(FieldsPage):
             ops = super().get_operations()
             for op in ops:
                 op['label']= '发放'
+                op['click_express'] = 'cfg.confirm("确认填写正确，发放物品?").then(()=>{return scope.ps.vc.submit()}).then(()=>{scope.ps.vc.row.is_all_player=false;scope.ps.vc.row.player_list="";scope.ps.vc.row.amount=""})'
             return ops
         
         def get_heads(self):
             return [
-                {'name':'player_list','label':'接收玩家','editor':'com-field-blocktext','help_text':'以逗号，分号或者换行分割;如果不填就是所有在线玩家',},
+                {'name':'is_all_player','label':'全体玩家','editor':'com-field-bool'},
+                {'name':'player_list','label':'接收玩家',
+                 'show_express':'rt=!scope.row.is_all_player',
+                 'editor':'com-field-blocktext','required':True,
+                 'help_text':'以逗号，分号或者换行分割;',},
                 {'name':'item','label':'物品','editor':'com-field-linetext','help_text':'不填写表示钻石'},
                 {'name':'amount','label':'数量','editor':'com-field-int','required':True,'fv_rule':'integer(+);'},
             ]
         
         def save_form(self):
-            if self.kw.get('player_list'):
+            if self.kw.get('is_all_player'):
+                palyer = None
+                if self.kw.get('item'):
+                    game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
+                else:
+                    # 钻石的时候没有item
+                    game_recharge(palyer,self.kw.get('amount'),)
+            elif self.kw.get('player_list'):
                 players = re.split('[;,\n]+',self.kw.get('player_list'))
                 for play in players:
                     palyer = play.strip()
@@ -38,13 +50,8 @@ class BatchSendPage(FieldsPage):
                     else:
                         # 钻石的时候没有item
                         game_recharge(palyer,self.kw.get('amount'),)
-            else:
-                palyer = None
-                if self.kw.get('item'):
-                    game_recharge(palyer,self.kw.get('amount'),self.kw.get('item'))
-                else:
-                    # 钻石的时候没有item
-                    game_recharge(palyer,self.kw.get('amount'),)
+     
+               
 
         
 
