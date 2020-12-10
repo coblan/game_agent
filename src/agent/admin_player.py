@@ -30,7 +30,7 @@ class PlayerPage(TablePage):
             ops = super().get_operation()
             ops += [
                 {'editor':'com-btn',
-                 'label':'设置列',
+                 'label':'显示列',
                  'icon':'el-icon-s-tools',
                  'action':'cfg.pop_vue_com("com-panel-table-setting",{table_ps:scope.ps,title:"设置列"})'},
             ]
