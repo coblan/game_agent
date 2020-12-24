@@ -33,3 +33,6 @@ ALLOWED_HOSTS=['*']
 DEBUG =False
 SELF_DOMAIN = 'http://47.113.186.102'
 GAME_PROXY ={}
+
+
+BRAND_NAME='野人代理'

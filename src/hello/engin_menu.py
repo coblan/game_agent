@@ -14,8 +14,8 @@ from agent.models import *
 
 class PcMenu(BaseEngine):
     url_name = 'game_agent_admin'
-    title = '代理人系统'
-    brand =  getattr(settings,'DEV_NAME','代理人系统')
+    title = getattr(settings,'BRAND_NAME','代理人系统')
+    brand =  getattr(settings,'BRAND_NAME','代理人系统')
     mini_brand = '代理'
     need_staff=True
     access_from_internet=True
