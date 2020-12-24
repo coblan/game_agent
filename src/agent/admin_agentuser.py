@@ -40,13 +40,13 @@ class AgentUserPage(TablePage):
                 head['width'] = width[head['name']]
             return head
         
-        def get_operation(self):
-            ops =super().get_operation()
-            out = []
-            for op in ops:
-                if op['name'] !='delete_selected':
-                    out.append(op)
-            return out
+        #def get_operation(self):
+            #ops =super().get_operation()
+            #out = []
+            #for op in ops:
+                #if op['name'] !='delete_selected':
+                    #out.append(op)
+            #return out
         
 
 class AgentAcount(UserFields):
