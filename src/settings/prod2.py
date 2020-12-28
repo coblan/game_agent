@@ -36,3 +36,4 @@ GAME_PROXY ={}
 
 
 BRAND_NAME='野人代理'
+THEME='skin-green-light'

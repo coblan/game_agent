@@ -19,7 +19,7 @@ class PcMenu(BaseEngine):
     mini_brand = '代理'
     need_staff=True
     access_from_internet=True
-    
+    ui_theme= getattr(settings,'THEME','skin-blue')
     @property
     def menu(self):
         crt_user = self.request.user
