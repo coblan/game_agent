@@ -61,8 +61,9 @@ class AgentRchageForm(ModelFields):
         exclude =['admin'] 
     
     def dict_head(self, head):
-        if head['name'] =='amount':
-            head['fv_rule'] ='integer(+)'
+        if head['name'] =='agent':
+            head['filterable'] = True
+            #head['fv_rule'] ='integer(+)'
         return head
     
     def clean_save(self):
