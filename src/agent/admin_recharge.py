@@ -47,7 +47,7 @@ class RechargePage(TablePage):
         class filters(RowFilter): 
             @property
             def names(self):
-                names_ = ['player__acount']
+                names_ = ['player__acount','block']
                 if not has_permit(self.crt_user,'-agent_constraint'):
                     names_.append('agent__name')
                 return names_

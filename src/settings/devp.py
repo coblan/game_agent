@@ -19,7 +19,6 @@ DATABASES = {
          'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
          'ENGINE': 'sql_server.pyodbc',
           'HOST':'120.79.245.189,10824',
-          
           'USER':  'sa',
          'PASSWORD': 'libi@123', 
          'OPTIONS': {
@@ -27,6 +26,17 @@ DATABASES = {
                },
                 
         } , 
+     'game_sqlserver2': {
+         'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
+         'ENGINE': 'sql_server.pyodbc',
+          'HOST':'120.79.245.189,10824',
+          'USER':  'sa',
+         'PASSWORD': 'libi@123', 
+         'OPTIONS': {
+              
+               },
+                
+        } ,      
 } 
 
 SELF_DOMAIN = 'http://localhost:8300'
@@ -37,3 +47,12 @@ GAME_PROXY = {
 }
 
 DEV_NAME = 'Test'
+
+GAMES = [
+    {'label':'剑灵革命',
+     'id':1,
+     'blocks':[
+         {'id':1,'db':'game_sqlserver','label':'第一区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
+         {'id':2,'db':'game_sqlserver2','label':'第二区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
+     ]}
+]

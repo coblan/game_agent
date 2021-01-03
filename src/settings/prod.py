@@ -33,3 +33,13 @@ ALLOWED_HOSTS=['*']
 DEBUG =False
 SELF_DOMAIN = 'http://47.113.186.102'
 GAME_PROXY ={}
+
+
+GAMES = [
+    {'label':'剑灵革命',
+     'id':1,
+     'blocks':[
+         {'id':1,'db':'game_sqlserver','label':'第一区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
+         {'id':2,'db':'game_sqlserver2','label':'第二区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
+     ]}
+]

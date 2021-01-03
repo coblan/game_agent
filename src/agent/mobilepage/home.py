@@ -63,9 +63,26 @@ class RechargeForm(FieldsMobile):
              #'mounted_express':'scope.vc.$on("blur",(e)=>{live_root.$emit("account_change",e)})',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();scope.vc.options=[];scope.row.character=''; ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
-             ''' ,
+             
+             'mounted_express':'''function get_character(block, account){
+             scope.row.character='';
+             scope.vc.options =[];
+                 cfg.show_load();
+                 ex.director_call("player_get_charecter",{block:block , account:account,})
+                 .then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+             }
+             
+             scope.vc.$watch("row.account",account =>{if(scope.row.block && account  ){   get_character(scope.row.block,account )     }     } );
+             scope.vc.$watch("row.block", block=>{if(block && scope.row.account ){   get_character(block,scope.row.account)     }     } );
+             
+             scope.vc.$watch("row.character",v=>{   if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+            ''',
+             
+             #'mounted_express':'''
+             #scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();scope.vc.options=[];scope.row.character=''; ex.director_call("get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
+             #scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             #''' 
+             
              'label':'角色','required':True},
             {'name':'amount','editor':'com-field-int','label':'当前余额','readonly':True},
             {'name':'recharge_amount','editor':'com-field-int','label':'充值金额','required':True,'fv_rule':'integer(+)'},
@@ -86,11 +103,13 @@ class RechargeForm(FieldsMobile):
         if self.crt_user.agentuser.amount <0:
             raise UserWarning('余额不足')
         self.crt_user.agentuser.save()
-        player = GamePlayer.objects.get(acount=self.kw.get('account'))
+        block = GameBlock.objects.get(pk = self.kw.get('block'))
+        player = GamePlayer.objects.get(acount=self.kw.get('account'),block=block )
         player.credit += self.kw.get('recharge_amount')
         player.history_credit += self.kw.get('recharge_amount')
         player.save()
         
+        # 如果每天持续充值，会得到 领取奖品奖励。 实现方式:第二天去掉 30 
         record = Recharge.objects.filter( player=player,).order_by('-createtime').first()
         if record and record.createtime.date() < timezone.now().date():
             ls = player.has_get.split(',')
@@ -100,7 +119,7 @@ class RechargeForm(FieldsMobile):
                 player.save()
 
         Recharge.objects.create(agent=self.crt_user.agentuser,game_id=self.kw.get('game'),
-                                block_id=self.kw.get('block'),
+                                block=block,
                                 player=player,
                                 charactar=self.kw.get('_character_label'),
                                 pc_id=self.kw.get('character'),
@@ -112,7 +131,7 @@ class RechargeForm(FieldsMobile):
             mutiple = 600
             
         diamond_amount = self.kw.get('recharge_amount') * mutiple
-        game_recharge(self.kw.get('character'), diamond_amount )
+        game_recharge(block.charge_api,self.kw.get('character'), diamond_amount )
        
 
 class NewPlayerGift(FieldsMobile):
@@ -137,53 +156,80 @@ class NewPlayerGift(FieldsMobile):
             {'name':'account','editor':'com-field-linetext',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();scope.vc.options=[];scope.row.character='';ex.director_call("get_new_guy_gift",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
-             ''' ,
+             #'mounted_express':'''function get_character(block, account){
+             #scope.row.character='';
+             #scope.vc.options =[];
+                 #cfg.show_load();
+                 #ex.director_call("player_get_charecter",{block:block , account:account,})
+                 #.then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+             #}
+             
+             #scope.vc.$watch("row.account",account =>{if(scope.row.block && account  ){   get_character(scope.row.block,account )     }     } );
+             #scope.vc.$watch("row.block", block=>{if(block && scope.row.account ){   get_character(block,scope.row.account)     }     } );
+             
+             #scope.vc.$watch("row.character",v=>{   if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })             
+            #'''
+            'mounted_express':'''function new_guy(account,block){
+                cfg.show_load();
+                scope.vc.options=[];
+                scope.row.character='';
+                ex.director_call("get_new_guy_gift",{account:account,block:block}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+            }
+            scope.vc.$watch("row.account",v=>{if(v && scope.row.block){ new_guy( v,scope.row.block )       }     } );
+            scope.vc.$watch("row.block",v=>{if(v && scope.row.account){ new_guy( scope.row.account,v )       }     } );
+            
+            scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+            '''
+             #'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();scope.vc.options=[];scope.row.character='';ex.director_call("get_new_guy_gift",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
+             #scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             #''' 
+             ,
              'label':'角色','required':True},
         ]
     
     def save_form(self):
+        block = GameBlock.objects.get(pk =self.kw.get('block'))
         try:
-            player = GamePlayer.objects.get(acount = self.kw.get('account'))
+            player = GamePlayer.objects.get(acount = self.kw.get('account') ,block_id=self.kw.get('block') )
             if player.agent != self.crt_user.agentuser:
                 raise UserWarning('该玩家不属于本代理')
         except GamePlayer.DoesNotExist:
-            player = GamePlayer.objects.create(acount = self.kw.get('account'),agent = self.crt_user.agentuser)
+            player = GamePlayer.objects.create(acount = self.kw.get('account'),agent = self.crt_user.agentuser,block_id=self.kw.get('block'))
         if not player.new_guy_gift :
             player.new_guy_gift = True
             player.save()         
-            game_recharge(self.kw.get('character'), 20000)
-            game_recharge(self.kw.get('character'), 999,'getexp04')        
+            game_recharge(block.charge_api,self.kw.get('character'), 20000)
+            game_recharge(block.charge_api,self.kw.get('character'), 999,'getexp04')        
 
 
-@director_view('get_charecter')
-def get_charecter(account):
-    '''account_id='wyh99999 ''' 
-    options =[]
-    crt_user = get_request_cache()['request'].user
-    if not GamePlayer.objects.filter(agent__account = crt_user,acount=account).exists():
-        raise UserWarning('没有找到该用户')
-    for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
-        options.append({
-            'value':inst.pc_id,'label':inst.pc_name
-        })
-    return options
+#@director_view('get_charecter')
+#def get_charecter(account):
+    #'''account_id='wyh99999 ''' 
+    #options =[]
+    #crt_user = get_request_cache()['request'].user
+    #if not GamePlayer.objects.filter(agent__account = crt_user,acount=account).exists():
+        #raise UserWarning('没有找到该用户')
+    #for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
+        #options.append({
+            #'value':inst.pc_id,'label':inst.pc_name
+        #})
+    #return options
 
 @director_view('get_new_guy_gift')
-def get_new_guy_gift(account):
+def get_new_guy_gift(account,block):
     '''account_id='wyh99999 ''' 
     options =[]
     crt_user = get_request_cache()['request'].user
     
+    block_inst = GameBlock.objects.get(pk = block)
     
-    if not GamePlayer.objects.filter(acount=account).exists():
-        if not TbCharacter.objects.using('game_sqlserver').filter(account_id=account).exists():
+    if not GamePlayer.objects.filter(acount=account,block = block_inst).exists():
+        if not TbCharacter.objects.using(block_inst.db).filter(account_id=account).exists():
             raise UserWarning('没有找到角色!')
     
-    elif not GamePlayer.objects.filter(agent__account = crt_user,acount=account,new_guy_gift=False).exists():
+    elif not GamePlayer.objects.filter(agent__account = crt_user,block = block_inst,acount=account,new_guy_gift=False).exists():
         raise UserWarning('该用户不属于本代理或已经领取过新人福利。')
-    for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
+    for inst in TbCharacter.objects.using(block_inst.db).filter(account_id=account):
         options.append({
             'value':inst.pc_id,'label':inst.pc_name
         })

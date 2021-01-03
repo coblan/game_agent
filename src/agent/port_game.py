@@ -8,7 +8,7 @@ general_log = logging.getLogger('general_log')
 #def game_recharge(id_N=None,qty=None,pwd_P=None):
     #print('wori')
     
-def game_recharge(id_N=None,qty=None,pwd_P=None):
+def game_recharge(charge_api,id_N=None,qty=None,pwd_P=None):
     '''id_N:玩家id
     qty: 数量
     pwd_P:物品标示
@@ -19,7 +19,8 @@ def game_recharge(id_N=None,qty=None,pwd_P=None):
     else:
         # 手动输入的情况
         id_N_id = id_N
-    url = 'http://101.132.98.232:7777/s1/item_result.php'
+    #url = 'http://101.132.98.232:7777/s1/item_result.php'
+    url = charge_api
     data = {
         "id_N": id_N_id,
         "pwd_P": pwd_P,

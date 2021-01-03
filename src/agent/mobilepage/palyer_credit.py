@@ -4,6 +4,7 @@ from helpers.mobile .shortcut import FieldsMobile
 from agent.models import Game,GameBlock,GamePlayer
 from agent.game_models import TbCharacter
 from agent.port_game import game_recharge
+from django.conf import settings
 
 class PlayerCredit(object):
     need_login=False
@@ -34,10 +35,21 @@ class CreditForm(FieldsMobile):
              'options':[{'value':x.pk,'label':str(x)} for x in GameBlock.objects.all()],
              'label':'区服','required':True},
             {'name':'account','editor':'com-field-linetext',
-             'label':'账号','required':True},
+             'label':'账号','required':True,
+             },
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("player_get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{ debugger;  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             'mounted_express':'''function get_character(block, account){
+                 scope.row.character='';
+                 scope.vc.options =[];
+                 cfg.show_load();
+                 ex.director_call("player_get_charecter",{block:block , account:account,})
+                 .then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+             }
+             
+             scope.vc.$watch("row.account",account =>{if(scope.row.block && account  ){   get_character(scope.row.block,account )     }     } );
+             scope.vc.$watch("row.block", block=>{if(block && scope.row.account ){   get_character(block,scope.row.account)     }     } );
+             
+             scope.vc.$watch("row.character",v=>{   if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
              'label':'角色','required':True},
             {'name':'history_credit','label':'累积积分','editor':'com-field-select','required':True,
@@ -48,7 +60,8 @@ class CreditForm(FieldsMobile):
         ]
     
     def clean(self):
-        self.player = GamePlayer.objects.get(acount = self.kw.get('account') )
+        self.block = GameBlock.objects.get(pk = self.kw.get('block'))
+        self.player = GamePlayer.objects.get(acount = self.kw.get('account') ,block= self.block )
         if self.player.history_credit <  self.kw.get('history_credit'):
             self.add_error('history_credit','您的累积积分不够,当前:%s'%self.player.history_credit)
         ls = [x for x in self.player.has_get.split(',') if x]
@@ -67,7 +80,7 @@ class CreditForm(FieldsMobile):
             if item.get('value') ==self.kw.get('history_credit'):
                 content = item.get('content')
         for k,v in content.items():
-            game_recharge(self.kw.get('character'), v,k)
+            game_recharge(self.block.charge_api,self.kw.get('character'), v,k)
             
 
 credit_bonus=[
@@ -97,14 +110,15 @@ credit_bonus=[
 
 
 @director_view('player_get_charecter')
-def player_get_charecter(account):
+def player_get_charecter(block,account):
     '''account_id='wyh99999 ''' 
     options =[]
+    block_inst = GameBlock.objects.get(pk = block)
     try:
-        GamePlayer.objects.get(acount = account)
+        GamePlayer.objects.get(acount = account,block=block_inst)
     except GamePlayer.DoesNotExist:
         raise UserWarning('账号不存在')
-    for inst in TbCharacter.objects.using('game_sqlserver').filter(account_id=account):
+    for inst in TbCharacter.objects.using(block_inst.db).filter(account_id=account):
         options.append({
             'value':inst.pc_id,'label':inst.pc_name
         })

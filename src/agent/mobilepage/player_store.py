@@ -38,9 +38,23 @@ class PlayerStoreForm(FieldsMobile):
             {'name':'account','editor':'com-field-linetext',
              'label':'账号','required':True},
             {'name':'character','editor':'com-field-select','options':[],
-             'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("player_get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
-             scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             
+             'mounted_express':'''function get_character(block, account){
+                 scope.row.character='';
+                 scope.vc.options =[];
+                 cfg.show_load();
+                 ex.director_call("player_get_charecter",{block:block , account:account,})
+                 .then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+             }
+             
+             scope.vc.$watch("row.account",account =>{if(scope.row.block && account  ){   get_character(scope.row.block,account )     }     } );
+             scope.vc.$watch("row.block", block=>{if(block && scope.row.account ){   get_character(block,scope.row.account)     }     } );
+             
+             scope.vc.$watch("row.character",v=>{   if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
              ''' ,
+             #'mounted_express':'''scope.vc.$watch("row.account",v=>{if(v){cfg.show_load();ex.director_call("player_get_charecter",{account:v}).then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})       }     } )
+             #scope.vc.$watch("row.character",v=>{  if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
+             #''' ,
              'label':'角色','required':True},
             {'name':'kind','label':'商品种类','editor':'com-field-select','required':True,
              'options':[
@@ -68,7 +82,8 @@ class PlayerStoreForm(FieldsMobile):
         ]
     
     def clean(self):
-        self.player = GamePlayer.objects.get(acount = self.kw.get('account') )
+        self.block = GameBlock.objects.get(pk= self.kw.get('block'))
+        self.player = GamePlayer.objects.get(acount = self.kw.get('account'),block = self.block )
         self.kind_inst = findone(store_menu,{'value': self.kw.get('kind')} )
         self.product = findone(self.kind_inst.get('items'),{'value':self.kw.get('product')})
         
@@ -79,7 +94,7 @@ class PlayerStoreForm(FieldsMobile):
 
         self.player.credit -= self.kind_inst.get('credit' ) #  self.product.get('amount')
         self.player.save()
-        game_recharge(self.kw.get('character'),self.product.get('amount'), self.product.get('value'))
+        game_recharge(self.block.charge_api,self.kw.get('character'),self.product.get('amount'), self.product.get('value'))
         operation_log('用户%(account)s为其角色%(character)s提取物品%(product)s'%self.kw)
         StoreRecord.objects.create(player = self.player,
                                    credit = self.kind_inst.get('credit' ),

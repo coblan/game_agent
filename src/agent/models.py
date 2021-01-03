@@ -22,6 +22,7 @@ class GamePlayer(models.Model):
     has_get = models.CharField('已领取',max_length=200,blank=True)
     desp = models.CharField('备注',max_length=300,blank=True)
     createtime = models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
+    block = models.ForeignKey(to='GameBlock',verbose_name='分区',default=1)
 
     def __str__(self):
         return self.acount
@@ -35,6 +36,8 @@ class Game(models.Model):
 class GameBlock(models.Model):
     name = models.CharField('大区名字',max_length=200)
     game = models.ForeignKey(to=Game,verbose_name='游戏',null=True)
+    db = models.CharField('数据库',max_length=50,blank=True)
+    charge_api = models.CharField('充值接口',max_length=200,blank=True)
     
     def __str__(self):
         return self.name

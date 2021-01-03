@@ -61,6 +61,7 @@ class GamePage(TablePage):
         
 
 class GameForm(ModelFields):
+    readonly =['name']
     class Meta:
         model = Game
         exclude =[] 
@@ -69,12 +70,15 @@ class GameForm(ModelFields):
         return {
             'block_count':inst.gameblock_set.count()
         }
+    
+    #def get_operations(self):
+        #return []
 
 
 class GameBlockTab(ModelTable):
     model = GameBlock
     exclude =['id']
-    hide_fields =['game']
+    hide_fields =['game','charge_api']
     
     def dict_head(self, head):
         width = {
@@ -105,9 +109,9 @@ class GameBlockForm(ModelFields):
 
 director.update({
     'game':GamePage.tableCls,
-    'game.edit':GameForm,
+    #'game.edit':GameForm,
     'gameBlock':GameBlockTab,
-    'gameBlock.edit':GameBlockForm,
+    #'gameBlock.edit':GameBlockForm,
 })
 
 page_dc.update({
