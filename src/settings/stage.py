@@ -76,7 +76,7 @@ ALLOWED_HOSTS=['*']
 
 SELF_DOMAIN = 'http://test.bkpiyaso.cn'
 
-
+DEV_NAME = '代理人[测试]'
 
 GAMES = [
     {'label':'剑灵革命',
