@@ -5,6 +5,7 @@ from agent.models import Game,GameBlock,GamePlayer
 from agent.game_models import TbCharacter
 from agent.port_game import game_recharge
 from django.conf import settings
+from django.utils.translation import ugettext as _
 
 class PlayerCredit(object):
     need_login=False
@@ -18,7 +19,7 @@ class PlayerCredit(object):
         return {
             'editor':'live_fields',
             'editor_ctx':  { 
-                'title':'累计充值奖励',
+                'title':_('累计充值奖励'),
                 **CreditForm().get_context(),
                      }
             
@@ -28,14 +29,14 @@ class CreditForm(FieldsMobile):
     nolimit = True
     def get_heads(self):
         return [
-           {'name':'game','editor':'com-field-select','label':'游戏','required':True,'options':[
+           {'name':'game','editor':'com-field-select','label':_('游戏'),'required':True,'options':[
                 {'value':x.pk,'label':str(x)} for x in Game.objects.all()
                 ]},
             {'name':'block','editor':'com-field-select',
              'options':[{'value':x.pk,'label':str(x)} for x in GameBlock.objects.all()],
-             'label':'区服','required':True},
+             'label':_('区服'),'required':True},
             {'name':'account','editor':'com-field-linetext',
-             'label':'账号','required':True,
+             'label':_('账号'),'required':True,
              },
             {'name':'character','editor':'com-field-select','options':[],
              'mounted_express':'''function get_character(block, account){
@@ -43,18 +44,18 @@ class CreditForm(FieldsMobile):
                  scope.vc.options =[];
                  cfg.show_load();
                  ex.director_call("player_get_charecter",{block:block , account:account,})
-                 .then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("没有找到对应角色")}else{  scope.vc.options=options   }})
+                 .then(options=>{cfg.hide_load();if(options.length==0){cfg.toast("%(not_found_charactor)s")}else{  scope.vc.options=options   }})
              }
              
              scope.vc.$watch("row.account",account =>{if(scope.row.block && account  ){   get_character(scope.row.block,account )     }     } );
              scope.vc.$watch("row.block", block=>{if(block && scope.row.account ){   get_character(block,scope.row.account)     }     } );
              
              scope.vc.$watch("row.character",v=>{   if(v){ var opt = ex.findone(scope.vc.options,{value:v}); scope.vc.row._character_label = opt.label  }   })
-             ''' ,
-             'label':'角色','required':True},
-            {'name':'history_credit','label':'累积积分','editor':'com-field-select','required':True,
+             '''%{'not_found_charactor':_("没有找到对应角色")} ,
+             'label':_('角色'),'required':True},
+            {'name':'history_credit','label':_('累积积分'),'editor':'com-field-select','required':True,
              'options':[{'value':x['value'],'label':x['text']} for x in credit_bonus]},
-            {'name':'content','label':'奖励内容','editor':'com-field-blocktext','readonly':True,
+            {'name':'content','label':_('奖励内容'),'editor':'com-field-blocktext','readonly':True,
              'mounted_express':'scope.vc.$watch("row.history_credit",v=>{Vue.set(scope.row,"content",scope.head.label_option[v])})',
              'label_option':{x['value']: x['label']  for x in credit_bonus} }
         ]
@@ -63,11 +64,11 @@ class CreditForm(FieldsMobile):
         self.block = GameBlock.objects.get(pk = self.kw.get('block'))
         self.player = GamePlayer.objects.get(acount = self.kw.get('account') ,block= self.block )
         if self.player.history_credit <  self.kw.get('history_credit'):
-            self.add_error('history_credit','您的累积积分不够,当前:%s'%self.player.history_credit)
+            self.add_error('history_credit',_('您的累积积分不够,当前:%s')%self.player.history_credit)
         ls = [x for x in self.player.has_get.split(',') if x]
         self.player.has_get_list = ls
         if str( self.kw.get('history_credit') ) in self.player.has_get_list:
-            self.add_error('history_credit','您已经领取过了该积分段奖品')
+            self.add_error('history_credit',_('您已经领取过了该积分段奖品'))
             
     def save_form(self):
         # 30 已经的只能领一次

@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
      'helpers.director.middleware.request_cache.RequestCacheMiddleware',
 ]
 
@@ -158,3 +159,12 @@ MEDIA_URL = '/media/'
 
 from helpers.case.act_log.install import SET
 SET(globals())
+
+LANGUAGES = (
+    ('en', ('English')),
+    ('zh-hans', ('中文简体')),
+    ('zh-hant', ('中文繁體')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)

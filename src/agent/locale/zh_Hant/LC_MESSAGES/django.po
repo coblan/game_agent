@@ -1,0 +1,318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-08 21:05+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\agent\mobilepage\home.py:14
+msgid "您不是代理人用户"
+msgstr "您不是代理人用戶"
+
+#: .\agent\mobilepage\home.py:22
+msgid "代理人系统"
+msgstr "代理人系統"
+
+#: .\agent\mobilepage\home.py:24 .\agent\mobilepage\home.py:27
+msgid "玩家充值"
+msgstr "玩家充值"
+
+#: .\agent\mobilepage\home.py:26
+msgid "充值成功!"
+msgstr "充值成功!"
+
+#: .\agent\mobilepage\home.py:30 .\agent\mobilepage\home.py:33
+msgid "新人福利"
+msgstr "新人福利"
+
+#: .\agent\mobilepage\home.py:39
+msgid "退出登录"
+msgstr "退出登錄"
+
+#: .\agent\mobilepage\home.py:58 .\agent\mobilepage\home.py:152
+#: .\agent\mobilepage\palyer_credit.py:32 .\agent\mobilepage\player_store.py:33
+msgid "游戏"
+msgstr "遊戲"
+
+#: .\agent\mobilepage\home.py:63 .\agent\mobilepage\home.py:157
+#: .\agent\mobilepage\palyer_credit.py:37 .\agent\mobilepage\player_store.py:38
+msgid "区服"
+msgstr "區域"
+
+#: .\agent\mobilepage\home.py:66 .\agent\mobilepage\home.py:159
+#: .\agent\mobilepage\palyer_credit.py:39 .\agent\mobilepage\player_store.py:40
+msgid "账号"
+msgstr "賬號"
+
+#: .\agent\mobilepage\home.py:81 .\agent\mobilepage\palyer_credit.py:54
+#: .\agent\mobilepage\player_store.py:55
+msgid "没有找到对应角色"
+msgstr "沒有找到對應角色"
+
+#: .\agent\mobilepage\home.py:88 .\agent\mobilepage\home.py:190
+#: .\agent\mobilepage\palyer_credit.py:55 .\agent\mobilepage\player_store.py:59
+msgid "角色"
+msgstr "角色"
+
+#: .\agent\mobilepage\home.py:89
+msgid "当前余额"
+msgstr "當前餘額"
+
+#: .\agent\mobilepage\home.py:90
+msgid "充值金额"
+msgstr "充值金額"
+
+#: .\agent\mobilepage\home.py:100
+msgid "充值金额不够"
+msgstr "充值金額不夠"
+
+#: .\agent\mobilepage\home.py:106
+msgid "余额不足"
+msgstr "餘額不足"
+
+#: .\agent\mobilepage\home.py:145
+msgid "发放"
+msgstr "發放"
+
+#: .\agent\mobilepage\home.py:198
+msgid "该玩家不属于本代理"
+msgstr "該玩家不屬於本代理"
+
+#: .\agent\mobilepage\home.py:231
+#, fuzzy
+#| msgid "没有找到对应角色"
+msgid "没有找到角色!"
+msgstr "沒有找到對應角色"
+
+#: .\agent\mobilepage\home.py:234
+msgid "该用户不属于本代理或已经领取过新人福利。"
+msgstr "該用戶不屬於本代理或已經領取過新人福利"
+
+#: .\agent\mobilepage\palyer_credit.py:22
+msgid "累计充值奖励"
+msgstr "累積充值獎勵"
+
+#: .\agent\mobilepage\palyer_credit.py:56
+msgid "累积积分"
+msgstr "累積積分"
+
+#: .\agent\mobilepage\palyer_credit.py:58
+msgid "奖励内容"
+msgstr "獎勵內容"
+
+#: .\agent\mobilepage\palyer_credit.py:67
+#, python-format
+msgid "您的累积积分不够,当前:%s"
+msgstr "您的累積積分不夠，當前:%s"
+
+#: .\agent\mobilepage\palyer_credit.py:71
+msgid "您已经领取过了该积分段奖品"
+msgstr "您已經領取過該積分獎品"
+
+#: .\agent\mobilepage\player_store.py:23
+msgid "积分商城"
+msgstr "積分商城"
+
+#: .\agent\mobilepage\player_store.py:60
+msgid "商品种类"
+msgstr "商品種類"
+
+#: .\agent\mobilepage\player_store.py:64
+msgid "商品"
+msgstr "商品"
+
+#: .\agent\mobilepage\player_store.py:92
+#, fuzzy, python-format
+#| msgid "您的累积积分不够,当前:%s"
+msgid "您的积分不够,当前:%s"
+msgstr "您的累積積分不夠，當前:%s"
+
+#: .\agent\mobilepage\player_store.py:99
+#, python-format
+msgid "用户%(account)s为其角色%(character)s提取物品%(product)s"
+msgstr "用戶%(account)s為其角色%(character)s提取物品%(product)s"
+
+#: .\agent\mobilepage\player_store.py:117
+msgid "职业指定紫色秘籍(1000积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:118
+msgid "风火轮2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:119
+msgid "天雷令2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:120
+msgid "天隙流光2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:121
+msgid "狂风3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:122
+msgid "憾地3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:123
+msgid "灭绝2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:124
+msgid "炎龙啸2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:125
+msgid "寒冰之体2段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:126
+msgid "火炎掌3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:127
+msgid "飞燕剑3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:128
+msgid "炎龙破3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:129
+msgid "掠风3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:130
+msgid "四连斩3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:131
+msgid "风月破3段"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:133
+msgid "职业指定橙装道具(2000积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:134
+msgid "泰山系列剑士"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:135
+msgid "泰山系列拳师"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:136
+msgid "泰山系列气功"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:137
+msgid "泰山系列刺客"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:138
+msgid "泰山系列力士"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:139
+msgid "泰山系列召唤"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:140
+msgid "泰山系列灵剑"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:141
+msgid "孟川耳环"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:142
+msgid "孟川项链"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:143
+msgid "孟川戒指"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:144
+msgid "孟川手镯"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:145
+msgid "孟川腰带"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:147
+msgid "职业橙宠道具(300积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:148
+msgid "猫头鹰"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:149
+msgid "神龙"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:150
+msgid "孙悟空"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:151
+msgid "金鱼王"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:153
+msgid "消耗材料(200积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:154
+msgid "银币袋子(数量500)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:155
+msgid "武器强化材料包(数量200)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:156
+msgid "首饰强化材料包(数量200)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:157
+msgid "上乘武功精气(数量20)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:158
+msgid "上乘内功精气(数量20)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:159
+msgid "最高级青蓝精气(蓝色)数量10"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:160
+msgid "最高级赤红精气(红色)数量10"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:161
+msgid "最高级洪门精气(黄色)数量10"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:162
+msgid "最上级经验药水(数量999)"
+msgstr ""
