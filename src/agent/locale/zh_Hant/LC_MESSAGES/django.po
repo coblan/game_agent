@@ -147,172 +147,172 @@ msgstr "用戶%(account)s為其角色%(character)s提取物品%(product)s"
 
 #: .\agent\mobilepage\player_store.py:117
 msgid "职业指定紫色秘籍(1000积分)"
-msgstr ""
+msgstr "職業限定紫色秘籍（1000積分）"
 
 #: .\agent\mobilepage\player_store.py:118
 msgid "风火轮2段"
-msgstr ""
+msgstr "風火輪2段"
 
 #: .\agent\mobilepage\player_store.py:119
 msgid "天雷令2段"
-msgstr ""
+msgstr "天雷令2段"
 
 #: .\agent\mobilepage\player_store.py:120
 msgid "天隙流光2段"
-msgstr ""
+msgstr "天際流光2段"
 
 #: .\agent\mobilepage\player_store.py:121
 msgid "狂风3段"
-msgstr ""
+msgstr "狂風3段"
 
 #: .\agent\mobilepage\player_store.py:122
 msgid "憾地3段"
-msgstr ""
+msgstr "憾地3段"
 
 #: .\agent\mobilepage\player_store.py:123
 msgid "灭绝2段"
-msgstr ""
+msgstr "滅絕2段"
 
 #: .\agent\mobilepage\player_store.py:124
 msgid "炎龙啸2段"
-msgstr ""
+msgstr "炎龍嘯2段"
 
 #: .\agent\mobilepage\player_store.py:125
 msgid "寒冰之体2段"
-msgstr ""
+msgstr "寒冰之體2段"
 
 #: .\agent\mobilepage\player_store.py:126
 msgid "火炎掌3段"
-msgstr ""
+msgstr "火炎掌3段"
 
 #: .\agent\mobilepage\player_store.py:127
 msgid "飞燕剑3段"
-msgstr ""
+msgstr "飛燕劍3段"
 
 #: .\agent\mobilepage\player_store.py:128
 msgid "炎龙破3段"
-msgstr ""
+msgstr "炎龍破3段"
 
 #: .\agent\mobilepage\player_store.py:129
 msgid "掠风3段"
-msgstr ""
+msgstr "掠風3段"
 
 #: .\agent\mobilepage\player_store.py:130
 msgid "四连斩3段"
-msgstr ""
+msgstr "四連斬3段"
 
 #: .\agent\mobilepage\player_store.py:131
 msgid "风月破3段"
-msgstr ""
+msgstr "風月破3段"
 
 #: .\agent\mobilepage\player_store.py:133
 msgid "职业指定橙装道具(2000积分)"
-msgstr ""
+msgstr "職業限定橙裝道具（2000積分）"
 
 #: .\agent\mobilepage\player_store.py:134
 msgid "泰山系列剑士"
-msgstr ""
+msgstr "泰山系列劍士"
 
 #: .\agent\mobilepage\player_store.py:135
 msgid "泰山系列拳师"
-msgstr ""
+msgstr "泰山系列拳師"
 
 #: .\agent\mobilepage\player_store.py:136
 msgid "泰山系列气功"
-msgstr ""
+msgstr "泰山系列氣功"
 
 #: .\agent\mobilepage\player_store.py:137
 msgid "泰山系列刺客"
-msgstr ""
+msgstr "泰山系列刺客"
 
 #: .\agent\mobilepage\player_store.py:138
 msgid "泰山系列力士"
-msgstr ""
+msgstr "泰山系列力士"
 
 #: .\agent\mobilepage\player_store.py:139
 msgid "泰山系列召唤"
-msgstr ""
+msgstr "泰山系列召喚"
 
 #: .\agent\mobilepage\player_store.py:140
 msgid "泰山系列灵剑"
-msgstr ""
+msgstr "泰山系列靈劍"
 
 #: .\agent\mobilepage\player_store.py:141
 msgid "孟川耳环"
-msgstr ""
+msgstr "孟川耳環"
 
 #: .\agent\mobilepage\player_store.py:142
 msgid "孟川项链"
-msgstr ""
+msgstr "孟川項鏈"
 
 #: .\agent\mobilepage\player_store.py:143
 msgid "孟川戒指"
-msgstr ""
+msgstr "孟川戒指"
 
 #: .\agent\mobilepage\player_store.py:144
 msgid "孟川手镯"
-msgstr ""
+msgstr "孟川手鐲"
 
 #: .\agent\mobilepage\player_store.py:145
 msgid "孟川腰带"
-msgstr ""
+msgstr "孟川腰帶"
 
 #: .\agent\mobilepage\player_store.py:147
 msgid "职业橙宠道具(300积分)"
-msgstr ""
+msgstr "職業橙寵道具（300積分）"
 
 #: .\agent\mobilepage\player_store.py:148
 msgid "猫头鹰"
-msgstr ""
+msgstr "貓頭鷹"
 
 #: .\agent\mobilepage\player_store.py:149
 msgid "神龙"
-msgstr ""
+msgstr "神龍"
 
 #: .\agent\mobilepage\player_store.py:150
 msgid "孙悟空"
-msgstr ""
+msgstr "孫悟空"
 
 #: .\agent\mobilepage\player_store.py:151
 msgid "金鱼王"
-msgstr ""
+msgstr "金魚王"
 
 #: .\agent\mobilepage\player_store.py:153
 msgid "消耗材料(200积分)"
-msgstr ""
+msgstr "消耗材料（200積分）"
 
 #: .\agent\mobilepage\player_store.py:154
 msgid "银币袋子(数量500)"
-msgstr ""
+msgstr "銀幣袋子（數量500）"
 
 #: .\agent\mobilepage\player_store.py:155
 msgid "武器强化材料包(数量200)"
-msgstr ""
+msgstr "武器強化材料包（數量200）"
 
 #: .\agent\mobilepage\player_store.py:156
 msgid "首饰强化材料包(数量200)"
-msgstr ""
+msgstr "首飾強化材料包（數量200）"
 
 #: .\agent\mobilepage\player_store.py:157
 msgid "上乘武功精气(数量20)"
-msgstr ""
+msgstr "上乘武功精氣（數量20）"
 
 #: .\agent\mobilepage\player_store.py:158
 msgid "上乘内功精气(数量20)"
-msgstr ""
+msgstr "上乘內功精氣（數量20）"
 
 #: .\agent\mobilepage\player_store.py:159
 msgid "最高级青蓝精气(蓝色)数量10"
-msgstr ""
+msgstr "最高級青藍精氣（藍色）數量10"
 
 #: .\agent\mobilepage\player_store.py:160
 msgid "最高级赤红精气(红色)数量10"
-msgstr ""
+msgstr "最高級赤紅精氣（紅色）數量10"
 
 #: .\agent\mobilepage\player_store.py:161
 msgid "最高级洪门精气(黄色)数量10"
-msgstr ""
+msgstr "最高級洪門精氣（黃色）數量10"
 
 #: .\agent\mobilepage\player_store.py:162
 msgid "最上级经验药水(数量999)"
-msgstr ""
+msgstr "最上級經驗藥水（數量999）"
