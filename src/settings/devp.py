@@ -6,24 +6,24 @@ pymysql.install_as_MySQLdb()
 
 
 DATABASES = {
-     #'default': {
-        #'NAME': 'game_agent',
-        #'ENGINE': 'django.db.backends.mysql',
-        #'USER': 'root',
-        #'PASSWORD': 'root123456789',
-        #'HOST': '127.0.0.1', 
-        #'PORT': '3306', 
-        #'OPTIONS': {'charset':'utf8mb4'},
-      #},
      'default': {
         'NAME': 'game_agent',
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '47.113.186.102', 
-        'PORT': '10822', 
+        'PASSWORD': 'root123456789',
+        'HOST': '127.0.0.1', 
+        'PORT': '3306', 
         'OPTIONS': {'charset':'utf8mb4'},
-      },     
+      },
+     #'default': {
+        #'NAME': 'game_agent',
+        #'ENGINE': 'django.db.backends.mysql',
+        #'USER': 'root',
+        #'PASSWORD': 'root',
+        #'HOST': '47.113.186.102', 
+        #'PORT': '10822', 
+        #'OPTIONS': {'charset':'utf8mb4'},
+      #},     
      
      
      

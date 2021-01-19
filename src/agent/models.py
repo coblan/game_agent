@@ -71,10 +71,13 @@ class AgentRecharge(models.Model):
 
 
 class StoreRecord(models.Model):
-    player = models.ForeignKey(to=GamePlayer,verbose_name='购买人')
+    player = models.ForeignKey(to=GamePlayer,verbose_name='玩家')
     character = models.CharField('角色',max_length=100,)
     code = models.CharField(verbose_name='物品代码',max_length=50)
     credit = models.IntegerField('耗费积分',default=0)
     createtime= models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
     
-    
+
+class EverdaySign(models.Model):
+    player = models.ForeignKey(to=GamePlayer,verbose_name='玩家')
+    createtime= models.DateTimeField(verbose_name='创建时间',auto_now_add=True)

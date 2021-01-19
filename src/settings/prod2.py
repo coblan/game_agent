@@ -35,7 +35,7 @@ SELF_DOMAIN = 'http://47.113.186.102'
 GAME_PROXY ={}
 
 
-BRAND_NAME='野人代理'
+BRAND_NAME='金牌代理'
 THEME='skin-green-light'
 
 
