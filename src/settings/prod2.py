@@ -60,7 +60,7 @@ GAME_PROXY ={}
 
 
 BRAND_NAME='金牌代理'
-THEME='skin-green-light'
+THEME='skin-red-light'
 
 
 
