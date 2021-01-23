@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 21:05+0800\n"
+"POT-Creation-Date: 2021-01-23 15:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\agent\mobilepage\everyday_sign.py:40
+msgid "签到"
+msgstr "簽到"
+
+#: .\agent\mobilepage\everyday_sign.py:44
+msgid "查看历史"
+msgstr "查看歷史"
+
+#: .\agent\mobilepage\everyday_sign.py:50
+msgid "签到历史"
+msgstr "簽到歷史"
+
+#: .\agent\mobilepage\everyday_sign.py:59 .\agent\mobilepage\home.py:58
+#: .\agent\mobilepage\home.py:152 .\agent\mobilepage\palyer_credit.py:32
+#: .\agent\mobilepage\player_store.py:33
+msgid "游戏"
+msgstr "遊戲"
+
+#: .\agent\mobilepage\everyday_sign.py:64 .\agent\mobilepage\home.py:63
+#: .\agent\mobilepage\home.py:157 .\agent\mobilepage\palyer_credit.py:37
+#: .\agent\mobilepage\player_store.py:38
+msgid "区服"
+msgstr "區域"
+
+#: .\agent\mobilepage\everyday_sign.py:66 .\agent\mobilepage\home.py:66
+#: .\agent\mobilepage\home.py:159 .\agent\mobilepage\palyer_credit.py:39
+#: .\agent\mobilepage\player_store.py:40
+msgid "账号"
+msgstr "賬號"
+
+#: .\agent\mobilepage\everyday_sign.py:90
+msgid "您今天已经签到过了!"
+msgstr "您今天已經簽到過了!"
+
+#: .\agent\mobilepage\everyday_sign.py:93
+msgid "该游戏分区下不存在该玩家!"
+msgstr "該遊戲分區下不存在該玩家!"
 
 #: .\agent\mobilepage\home.py:14
 msgid "您不是代理人用户"
@@ -41,21 +79,6 @@ msgstr "新人福利"
 #: .\agent\mobilepage\home.py:39
 msgid "退出登录"
 msgstr "退出登錄"
-
-#: .\agent\mobilepage\home.py:58 .\agent\mobilepage\home.py:152
-#: .\agent\mobilepage\palyer_credit.py:32 .\agent\mobilepage\player_store.py:33
-msgid "游戏"
-msgstr "遊戲"
-
-#: .\agent\mobilepage\home.py:63 .\agent\mobilepage\home.py:157
-#: .\agent\mobilepage\palyer_credit.py:37 .\agent\mobilepage\player_store.py:38
-msgid "区服"
-msgstr "區域"
-
-#: .\agent\mobilepage\home.py:66 .\agent\mobilepage\home.py:159
-#: .\agent\mobilepage\palyer_credit.py:39 .\agent\mobilepage\player_store.py:40
-msgid "账号"
-msgstr "賬號"
 
 #: .\agent\mobilepage\home.py:81 .\agent\mobilepage\palyer_credit.py:54
 #: .\agent\mobilepage\player_store.py:55
@@ -316,3 +339,59 @@ msgstr "最高級洪門精氣（黃色）數量10"
 #: .\agent\mobilepage\player_store.py:162
 msgid "最上级经验药水(数量999)"
 msgstr "最上級經驗藥水（數量999）"
+
+#: .\agent\mobilepage\player_store.py:163
+msgid "固定精炼石*7777"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:164
+msgid "精炼石*9999"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:166
+msgid "PVP套装(4000积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:167
+msgid "职业限定PVP武器*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:168
+msgid "PVP耳环图纸*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:169
+msgid "PVP戒指图纸*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:170
+msgid "PVP项链图纸*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:171
+msgid "PVP手镯图纸*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:172
+msgid "PVP腰带图纸*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:174
+msgid "PVP套装(500积分)"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:175
+msgid "传说时装箱子*1"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:176
+msgid "武器修复石*5"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:177
+msgid "首饰修复石*5"
+msgstr ""
+
+#: .\agent\mobilepage\player_store.py:178
+msgid "负重增加1000*20"
+msgstr ""

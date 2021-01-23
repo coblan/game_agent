@@ -2,11 +2,12 @@ from hello.engin_menu import mb_page
 from helpers.director.shortcut import Fields,director,director_view,get_request_cache
 from helpers.mobile.shortcut import FieldsMobile
 from agent.game_models import TbCharacter
-from agent.models import GameBlock,GamePlayer,Recharge,Game
+from agent.models import GameBlock,GamePlayer,Recharge,Game,RechargeBonus
 from django.core.exceptions import PermissionDenied 
-from agent.port_game import game_recharge
+
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from agent.port_game import game_recharge
 
 class Home(object):
     def __init__(self, request, engin):
@@ -120,7 +121,7 @@ class RechargeForm(FieldsMobile):
                 player.has_get = ','.join(ls)
                 player.save()
 
-        Recharge.objects.create(agent=self.crt_user.agentuser,game_id=self.kw.get('game'),
+        recharg_inst = Recharge.objects.create(agent=self.crt_user.agentuser,game_id=self.kw.get('game'),
                                 block=block,
                                 player=player,
                                 charactar=self.kw.get('_character_label'),
@@ -134,6 +135,14 @@ class RechargeForm(FieldsMobile):
             
         diamond_amount = self.kw.get('recharge_amount') * mutiple
         game_recharge(block.charge_api,self.kw.get('character'), diamond_amount )
+        
+        if player.par:
+            # 当用户A 有上级的时候，需要给上级用户反馈30%的积分
+            amount = recharg_inst.amount * 0.3
+            RechargeBonus.objects.create(player=player.par,recharge = recharg_inst,
+                                         amount=amount)
+            player.par.credit += amount
+            player.par.save()
        
 
 class NewPlayerGift(FieldsMobile):

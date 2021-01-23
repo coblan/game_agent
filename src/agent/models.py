@@ -23,6 +23,7 @@ class GamePlayer(models.Model):
     desp = models.CharField('备注',max_length=300,blank=True)
     createtime = models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
     block = models.ForeignKey(to='GameBlock',verbose_name='分区',default=1)
+    par = models.ForeignKey(to='GamePlayer',blank=True,null=True,verbose_name='上级玩家')
 
     def __str__(self):
         return self.acount
@@ -81,3 +82,10 @@ class StoreRecord(models.Model):
 class EverdaySign(models.Model):
     player = models.ForeignKey(to=GamePlayer,verbose_name='玩家')
     createtime= models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
+
+
+class RechargeBonus(models.Model):
+    player= models.ForeignKey(GamePlayer,verbose_name='玩家',)
+    recharge = models.ForeignKey(Recharge,verbose_name='触发充值记录',)
+    amount = models.IntegerField('数量',default=0)
+    createtime= models.DateTimeField(verbose_name='充值时间',auto_now_add=True)

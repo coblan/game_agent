@@ -159,9 +159,25 @@ store_menu=[
         {'value':'ess20003','label':_('最高级青蓝精气(蓝色)数量10'),'amount':10},
         {'value':'ess10003','label':_('最高级赤红精气(红色)数量10'),'amount':10},
         {'value':'ess00003','label':_('最高级洪门精气(黄色)数量10'),'amount':10},
-        {'value':'getexp04','label':_('最上级经验药水(数量999)'),'amount':999}
-        
-    ]}
+        {'value':'getexp04','label':_('最上级经验药水(数量999)'),'amount':999},
+        {'value':'ref10002','label':_('固定精炼石*7777'),'amount':7777},
+        {'value':'ref10001','label':_('精炼石*9999'),'amount':9999},
+    ]},
+    {'value':5,'label':_('PVP套装(4000积分)'),'credit':4000,'items':[
+        {'value':'box80007','label':_('职业限定PVP武器*1'),'amount':1},
+        {'value':'mea50014 ','label':_('PVP耳环图纸*1'),'amount':1},
+        {'value':'mri50014','label':_('PVP戒指图纸*1'),'amount':1},
+        {'value':'mne50014','label':_('PVP项链图纸*1'),'amount':1},
+        {'value':'mbr50014 ','label':_('PVP手镯图纸*1'),'amount':1},
+        {'value':'mbe50014','label':_('PVP腰带图纸*1'),'amount':1},
+    ]},   
+    {'value':6,'label':_('PVP套装(500积分)'),'credit':500,'items':[
+        {'value':'box83004','label':_('传说时装箱子*1'),'amount':1},
+        {'value':'rst50003 ','label':_('武器修复石*5'),'amount':5},
+        {'value':'rst50103','label':_('首饰修复石*5'),'amount':5},
+        {'value':'wei40011 ','label':_('负重增加1000*20'),'amount':20},
+
+    ]},       
 ]
 
 

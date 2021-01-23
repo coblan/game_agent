@@ -60,7 +60,7 @@ DATABASES = {
      'game_sqlserver2': {
          'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
          'ENGINE': 'sql_server.pyodbc',
-          'HOST':'106.14.15.45,1433', 
+          'HOST':'47.101.186.162,1433',
           'USER':  'sa',
          'PASSWORD': 'libi@123', 
          'OPTIONS': {
@@ -83,6 +83,6 @@ GAMES = [
      'id':1,
      'blocks':[
          {'id':1,'db':'game_sqlserver','label':'第一区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
-         {'id':2,'db':'game_sqlserver2','label':'第二区','charge_api':'http://101.132.98.232:7777/s1/item_result.php'},
+         {'id':2,'db':'game_sqlserver2','label':'第二区','charge_api':'http://101.132.98.232:7777/s2/item_result.php'},
      ]}
 ]

@@ -26,7 +26,19 @@ DATABASES = {
 
                },
                 
-        } ,      
+        } ,   
+     'game_sqlserver': {
+         'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
+         'ENGINE': 'sql_server.pyodbc',
+          'HOST':'106.14.15.45,1433', 
+          'USER':  'sa',
+         'PASSWORD': 'libi@123', 
+         'OPTIONS': {
+              'driver': 'ODBC Driver 17 for SQL Server',
+
+               },
+                
+        } ,        
 } 
 
 ALLOWED_HOSTS=['*']

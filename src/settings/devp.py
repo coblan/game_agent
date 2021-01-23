@@ -4,6 +4,10 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
+#DATABASE_ROUTERS = ['hello.db_router.Myrouter']
+
+
+TEST_RUNNER = 'hello.jjyy.NoDbTestRunner'
 
 DATABASES = {
      'default': {
@@ -25,30 +29,42 @@ DATABASES = {
         #'OPTIONS': {'charset':'utf8mb4'},
       #},     
      
-     
-     
-     
+      #'game_sqlserver': {
+          #'NAME': 'notebook',
+          #'ENGINE': 'django.db.backends.mysql',
+          #'USER': 'root',
+          #'PASSWORD': 'root123456789',
+          #'HOST': '127.0.0.1', 
+          #'PORT': '3306', 
+          #'TEST': {
+                #'NAME': 'walala',
+               #},          
+          #'OPTIONS': {'charset':'utf8mb4'},
+                   
+           #} , 
+
      'game_sqlserver': {
          'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
          'ENGINE': 'sql_server.pyodbc',
-          'HOST':'120.79.245.189,10824',
+          'HOST':'47.113.186.102,10824',
           'USER':  'sa',
          'PASSWORD': 'libi@123', 
-         'OPTIONS': {
-              
-               },
-                
+         'OPTIONS': {},
+         'TEST': {
+               'NAME': 'bnsm_gamedb_trunk_individual',
+          },               
         } , 
+     
      'game_sqlserver2': {
          'NAME': 'bnsm_gamedb_trunk_individual',#'Sports',
          'ENGINE': 'sql_server.pyodbc',
-          'HOST':'120.79.245.189,10824',
+          'HOST':'47.113.186.102,10825',
           'USER':  'sa',
          'PASSWORD': 'libi@123', 
-         'OPTIONS': {
-              
-               },
-                
+         'OPTIONS': {}, 
+         'TEST': {
+               'NAME': 'bnsm_gamedb_trunk_individual',
+          },           
         } ,      
 } 
 

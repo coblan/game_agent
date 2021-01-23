@@ -20,5 +20,4 @@ class Command(BaseCommand):
                 b.db = block.get('db')
                 b.charge_api = block.get('charge_api')
                 b.save()
-        
 
