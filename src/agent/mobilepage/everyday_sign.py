@@ -3,7 +3,7 @@ from helpers.mobile.shortcut import FieldsMobile,ModelTableMobile
 from helpers.director.shortcut import director
 from hello.engin_menu import mb_page
 from django.utils.translation import ugettext as _
-from agent.models import Game,GameBlock,GamePlayer,EverdaySign
+from agent.models import Game,GameBlock,GamePlayer,EverdaySign,RechargeBonus
 from django.utils import timezone
 import base64
 from agent.game_utile import check_account_exist
@@ -50,17 +50,17 @@ class EveryDaySignForm(FieldsMobile):
             op['label'] = _('签到')
             op['type'] ='danger'
         ops.extend([
-            {'name':'history',
-             'label':_('查看历史'),
-             'editor':'com-btn',
-             'show_express':'rt = scope.vc.row.player',
-             'type':'info',
-             'click_express':'scope.head.table_ctx.search_args.player=scope.ps.vc.row.player;live_root.open_live("live_list",scope.head.table_ctx)',
-             'table_ctx':{
-                 'title':_('签到历史'),
-                 'search_args':{},
-                 **EveryDayHistory().get_head_context()},
-             },
+            #{'name':'history',
+             #'label':_('查看历史'),
+             #'editor':'com-btn',
+             #'show_express':'rt = scope.vc.row.player',
+             #'type':'info',
+             #'click_express':'scope.head.table_ctx.search_args.player=scope.ps.vc.row.player;live_root.open_live("live_list",scope.head.table_ctx)',
+             #'table_ctx':{
+                 #'title':_('签到历史'),
+                 #'search_args':{},
+                 #**EveryDayHistory().get_head_context()},
+             #},
             {'name':'invite-btn',
              'label':_('复制邀请链接'),
              'editor':'com-btn',
@@ -68,15 +68,27 @@ class EveryDaySignForm(FieldsMobile):
              'click_express':''' ex.copyToClip(scope.ps.vc.row.invite).then(()=>{cfg.toast("复制成功")})'''
              }   ,
             {'name':'history',
-            'label':_('测试tab'),
+            'label':_('积分奖励'),
             'editor':'com-btn',
             'type':'info',
-            'click_express':'live_root.open_live("live_tab",scope.head.tab_ctx)',
+            'show_express':'rt = scope.vc.row.player',
+            'click_express':''' ex.each(scope.head.tab_ctx.items,item=>{if(item.search_args){item.search_args.player=scope.ps.vc.row.player}});
+            live_root.open_live("live_tab",scope.head.tab_ctx)''',
             'tab_ctx':{
-                'title':_('签到历史'),
+                'title':_('积分奖励'),
                 'items':[
-                    {'name':'1','label':'测试一'},
-                    {'name':'2','label':'测试二'},
+                    {'name':'1',
+                     'label':_('签到奖励'),
+                     'editor':'com-top-list',
+                     'search_args':{},
+                      **EveryDayHistory().get_head_context()  
+                     },
+                    {'name':'2',
+                     'label':_('推介奖励'),
+                      'editor':'com-top-list',
+                     'search_args':{},
+                      **RechargeBonusTab().get_head_context()  
+                     },
                     #{'name':'3','label':'测试三'},
                     #{'name':'4','label':'测试四'},
                     #{'name':'5','label':'测试五'},
@@ -143,7 +155,7 @@ class EveryDaySignForm(FieldsMobile):
         self.player= player
         now = timezone.now()
         if not EverdaySign.objects.filter(createtime__date = timezone.now().date(),player=player).exists():
-            EverdaySign.objects.create(player = player)
+            #EverdaySign.objects.create(player = player)
             self.pay_score()
             self.msg = ''
         else:
@@ -165,31 +177,45 @@ class EveryDaySignForm(FieldsMobile):
 
 连续签到不能中断，中断了就从第一天开始算。每签到1次20积分固定！
         '''
-        self.player += 20
+
         ago_30 = timezone.now() - timezone.timedelta(days=30)
-        if self.player.last_settle_date > ago_30:
-            query = EverdaySign.objects.filter(createtime__date__gte= self.player.last_settle_date).order_by('-createtime')
+        if self.player.last_settle_date and self.player.last_settle_date >= ago_30.date():
+            query = EverdaySign.objects.filter(createtime__date__gt= self.player.last_settle_date).order_by('-createtime')
         else:
             query = EverdaySign.objects.filter(createtime__date__gte=ago_30.date()).order_by('-createtime')
         last_inst = None
-        count =0
+        count = 1
         for inst in query:
             if not last_inst:
                 last_inst = inst
-                count += 1
+                if last_inst.createtime.date() == timezone.now().date() -timezone.timedelta(days=1):
+                    count += 1
+                else:
+                    break
             else:
-                if last_inst .createtime.date()== inst.creatime.date() + timezone.timedelta(days=1):
+                if last_inst .createtime.date()== inst.createtime.date() + timezone.timedelta(days=1):
                     count  += 1
                     last_inst = inst
                 else:
                     break
+                
+        credit_bonus =20    
+        memo='签到20;'
         if count ==7:
-            self.player .credit += 50
+            credit_bonus += 50
+            memo+='连续7日+50;'
         elif count ==15:
-            self.player.credit += 200
+            credit_bonus += 200
+            memo+='连续15日+200;'
         elif count ==30:
-            self.player.credit += 500
+            credit_bonus += 500
+            memo+='连续30日+500;'
             self.player.last_settle_date = timezone.now().date()
+        else:
+            memo +='连续%s日'%count
+        EverdaySign.objects.create(player = self.player,memo=memo,amount =credit_bonus)
+        self.player.credit += credit_bonus
+        self.player.save()
             
                 
         
@@ -198,14 +224,41 @@ class EveryDayHistory(ModelTableMobile):
     model = EverdaySign
     exclude =['id']
     nolimit=True
+    fields_sort=['memo','createtime']
+    
+    def dict_head(self, head):
+        width ={
+            'memo':'3rem',
+        }
+        if head['name'] in width:
+            head['width'] =width[head['name']]
+        return head
+    
     def inn_filter(self, query):
         return query.filter(player_id=self.kw.get('player'))
     
 
+class RechargeBonusTab(ModelTableMobile):
+    model = RechargeBonus
+    nolimit = True
+    fields_sort=['amount','createtime']
+    
+    def dict_head(self, head):
+        width ={
+            'amount':'3rem',
+        }
+        if head['name'] in width:
+            head['width'] =width[head['name']]
+        return head
+    
+    def inn_filter(self, query):
+        return query.filter(player_id=self.kw.get('player'))
+
 
 director.update({
     'everyday-sign':EveryDaySignForm,
-    'everyday-sign-history':EveryDayHistory
+    'everyday-sign-history':EveryDayHistory,
+    'recharge-bonus':RechargeBonusTab,
 })    
 
 

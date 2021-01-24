@@ -83,6 +83,8 @@ class StoreRecord(models.Model):
 class EverdaySign(models.Model):
     player = models.ForeignKey(to=GamePlayer,verbose_name='玩家')
     createtime= models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
+    amount = models.IntegerField(verbose_name='奖励积分',default=0)
+    memo = models.CharField('备注',max_length=200,blank=True)
 
 
 class RechargeBonus(models.Model):

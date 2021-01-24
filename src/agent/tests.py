@@ -1,6 +1,6 @@
 from unittest import mock
 from django.test import TestCase,Client
-from .models import Game,GameBlock,GamePlayer,AgentUser
+from .models import Game,GameBlock,GamePlayer,AgentUser,EverdaySign
 from django.core.management import call_command
 from django.contrib.auth.models import User
 
@@ -25,9 +25,9 @@ class TestSimpleWash(TestCase):
         self.ss = self.game_recharger.start()
         self.ss.side_effect = func1
         
-        #self.now_pather = mock.patch('django.utils.timezone.now')
-        #self.mock_now = self.now_pather.start()
-        #self.mock_now.return_value  = timezone.datetime.strptime('2020-01-01 10:10:10.664309','%Y-%m-%d %H:%M:%S.%f')          
+        self.now_pather = mock.patch('django.utils.timezone.now')
+        self.mock_now = self.now_pather.start()
+        self.mock_now.return_value  = timezone.datetime.strptime('2020-01-01 10:10:10.664309','%Y-%m-%d %H:%M:%S.%f')          
         
     def test_recharge(self):
         cl = Client(enforce_csrf_checks=True)
@@ -71,5 +71,38 @@ class TestSimpleWash(TestCase):
         #player2充值1000,player1得到30
         rt2 = cl.post('/dapi/d.save_row',data=json.dumps(dc),content_type="application/json")
         player1.refresh_from_db()
-        self.assertTrue( player1.credit ==301 )          
-     
+        self.assertTrue( player1.credit ==301 )   
+        
+        
+        # 测试签到
+        # ==============
+        today =timezone.now()
+        for i in range(64):
+            today = today + timezone.timedelta(days=1)
+            self.mock_now.return_value = today
+            
+            dc ={"row":{"_director_name":"everyday-sign","meta_org_dict":{},"game":1,"block":1,"account":"wyh99999"}}
+            rt = cl.post('/dapi/d.save_row',data=json.dumps(dc),content_type="application/json")
+            memo = EverdaySign.objects.order_by('-createtime').first().memo
+            print(today,memo)
+            rt.json()
+            
+        # 测试签到断档
+        print('模拟签到断档')
+        count =0
+        ratio = 1
+        for i in range(40):
+            count += 1
+            today = today + timezone.timedelta(days=1)
+            if count % (ratio * 5)==2:
+                today = today + timezone.timedelta(days=1)
+                ratio += 3
+            self.mock_now.return_value = today
+            
+            dc ={"row":{"_director_name":"everyday-sign","meta_org_dict":{},"game":1,"block":1,"account":"wyh99999"}}
+            rt = cl.post('/dapi/d.save_row',data=json.dumps(dc),content_type="application/json")
+            memo = EverdaySign.objects.order_by('-createtime').first().memo
+            print(today,memo)
+            rt.json()        
+        
+        
