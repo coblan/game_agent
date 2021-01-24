@@ -24,6 +24,7 @@ class GamePlayer(models.Model):
     createtime = models.DateTimeField(verbose_name='创建时间',auto_now_add=True)
     block = models.ForeignKey(to='GameBlock',verbose_name='分区',default=1)
     par = models.ForeignKey(to='GamePlayer',blank=True,null=True,verbose_name='上级玩家')
+    last_settle_date = models.DateField(verbose_name='上次结算',blank=True,null=True)
 
     def __str__(self):
         return self.acount

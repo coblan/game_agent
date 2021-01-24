@@ -165,17 +165,17 @@ store_menu=[
     ]},
     {'value':5,'label':_('PVP套装(4000积分)'),'credit':4000,'items':[
         {'value':'box80007','label':_('职业限定PVP武器*1'),'amount':1},
-        {'value':'mea50014 ','label':_('PVP耳环图纸*1'),'amount':1},
+        {'value':'mea50014','label':_('PVP耳环图纸*1'),'amount':1},
         {'value':'mri50014','label':_('PVP戒指图纸*1'),'amount':1},
         {'value':'mne50014','label':_('PVP项链图纸*1'),'amount':1},
-        {'value':'mbr50014 ','label':_('PVP手镯图纸*1'),'amount':1},
+        {'value':'mbr50014','label':_('PVP手镯图纸*1'),'amount':1},
         {'value':'mbe50014','label':_('PVP腰带图纸*1'),'amount':1},
     ]},   
     {'value':6,'label':_('PVP套装(500积分)'),'credit':500,'items':[
         {'value':'box83004','label':_('传说时装箱子*1'),'amount':1},
-        {'value':'rst50003 ','label':_('武器修复石*5'),'amount':5},
+        {'value':'rst50003','label':_('武器修复石*5'),'amount':5},
         {'value':'rst50103','label':_('首饰修复石*5'),'amount':5},
-        {'value':'wei40011 ','label':_('负重增加1000*20'),'amount':20},
+        {'value':'wei40011','label':_('负重增加1000*20'),'amount':20},
 
     ]},       
 ]

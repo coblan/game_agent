@@ -65,8 +65,34 @@ class EveryDaySignForm(FieldsMobile):
              'label':_('复制邀请链接'),
              'editor':'com-btn',
              'show_express':'rt = scope.vc.row.player',
-             'click_express':''' ex.copyToClip(scope.ps.vc.row.invite).then(()=>{cfg.toast("复制成功")})'''} # setTimeout(()=>{document.execCommand('copy');cfg.toast("复制成功!")},500);
-            ])
+             'click_express':''' ex.copyToClip(scope.ps.vc.row.invite).then(()=>{cfg.toast("复制成功")})'''
+             }   ,
+            {'name':'history',
+            'label':_('测试tab'),
+            'editor':'com-btn',
+            'type':'info',
+            'click_express':'live_root.open_live("live_tab",scope.head.tab_ctx)',
+            'tab_ctx':{
+                'title':_('签到历史'),
+                'items':[
+                    {'name':'1','label':'测试一'},
+                    {'name':'2','label':'测试二'},
+                    #{'name':'3','label':'测试三'},
+                    #{'name':'4','label':'测试四'},
+                    #{'name':'5','label':'测试五'},
+                    #{'name':'6','label':'测试六'},
+                    #{'name':'7','label':'测试七'},
+                    #{'name':'8','label':'测试八'},
+                    #{'name':'9','label':'测试九'},
+                    #{'name':'10','label':'测试十'},
+                    #{'name':'11','label':'测试十一'},
+                    #{'name':'12','label':'测试十二'},
+                    #{'name':'13','label':'测试十三'},
+                    #{'name':'14','label':'测试十四'},
+                ] 
+             },
+            }  
+        ])
         return ops
     
     def get_heads(self):
@@ -139,7 +165,34 @@ class EveryDaySignForm(FieldsMobile):
 
 连续签到不能中断，中断了就从第一天开始算。每签到1次20积分固定！
         '''
-        pass
+        self.player += 20
+        ago_30 = timezone.now() - timezone.timedelta(days=30)
+        if self.player.last_settle_date > ago_30:
+            query = EverdaySign.objects.filter(createtime__date__gte= self.player.last_settle_date).order_by('-createtime')
+        else:
+            query = EverdaySign.objects.filter(createtime__date__gte=ago_30.date()).order_by('-createtime')
+        last_inst = None
+        count =0
+        for inst in query:
+            if not last_inst:
+                last_inst = inst
+                count += 1
+            else:
+                if last_inst .createtime.date()== inst.creatime.date() + timezone.timedelta(days=1):
+                    count  += 1
+                    last_inst = inst
+                else:
+                    break
+        if count ==7:
+            self.player .credit += 50
+        elif count ==15:
+            self.player.credit += 200
+        elif count ==30:
+            self.player.credit += 500
+            self.player.last_settle_date = timezone.now().date()
+            
+                
+        
 
 class EveryDayHistory(ModelTableMobile):
     model = EverdaySign
