@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 import logging
 general_log = logging.getLogger('general_log')
-from agent.models import Game,GameBlock
+from agent.models import Game,GameBlock,GamePlayer
 from django.conf import settings
 
 class Command(BaseCommand):
@@ -20,4 +20,7 @@ class Command(BaseCommand):
                 b.db = block.get('db')
                 b.charge_api = block.get('charge_api')
                 b.save()
+        
+        for palyer in GamePlayer.objects.all():
+            palyer.save()
 

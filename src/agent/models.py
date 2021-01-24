@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import Group,User
-
+from helpers.director.model_func.cus_fields.char_id import CharIdField
 # Create your models here.
 
 class AgentUser(models.Model):
@@ -25,6 +25,7 @@ class GamePlayer(models.Model):
     block = models.ForeignKey(to='GameBlock',verbose_name='分区',default=1)
     par = models.ForeignKey(to='GamePlayer',blank=True,null=True,verbose_name='上级玩家')
     last_settle_date = models.DateField(verbose_name='上次结算',blank=True,null=True)
+    invite_code = CharIdField(verbose_name='邀请码',max_length=50,blank=True)
 
     def __str__(self):
         return self.acount

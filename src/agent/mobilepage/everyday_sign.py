@@ -18,24 +18,22 @@ class EveryDaySign(object):
     
     def get_context(self):
         kws= EveryDaySignForm().get_context()
-        if self.request.GET.get('par') and self.request.GET.get('block'):
-            par_account = base64.b64decode( self.request.GET.get('par') ).decode('utf-8')
-            block = self.request.GET.get('block')
-            par_player = GamePlayer.objects.get(acount=par_account,block_id=block)
+        if self.request.GET.get('code'):
+            par_player = GamePlayer.objects.get(invite_code = self.request.GET.get('code'))
             kws['row']['par'] = par_player.id
         return {
             'editor':'live_page',
             'editor_ctx':{
                 'head':{
                     'editor':'com-lay-navbar',
-                    'title':'今日签到',
+                    'title':_('今日签到'),
                 },
                 'bodys':[
                     {'editor':'com-fields-panel',
                      **kws,
                      #**EveryDaySignForm().get_context(),
                      #'after_save_express':'debugger;alert("bb")'
-                     'after_save_express':'scope.vc.row.invite = location.origin+scope.row.invite_path;if(scope.row.msg){cfg.toast(scope.row.msg)}else{cfg.toast("打卡成功")};'
+                     'after_save_express':'scope.vc.row.invite = location.origin+scope.row.invite_path;if(scope.row.msg){cfg.toast(scope.row.msg)}else{cfg.toast("签到成功!")};'
                      }
                 ]
             }
@@ -129,7 +127,7 @@ class EveryDaySignForm(FieldsMobile):
                 'player':self.player.id,
                 'msg':self.msg,
                 'invite':'',
-                'invite_path':'/mb/everyday?par=%s&block=%s'%( base64.b64encode(self.player.acount.encode('utf-8') ).decode('utf-8') , self.player.block_id)
+                'invite_path':'/mb/day?code=%s'% self.player.invite_code
                 #'already_signed':self.already_signed
             }
         else:
@@ -263,5 +261,6 @@ director.update({
 
 
 mb_page.update({
-    'everyday':EveryDaySign
+    'everyday':EveryDaySign,
+    'day':EveryDaySign,
 })
